@@ -54,8 +54,9 @@ namespace LODEdit
         private void updateData()
         {
             //Store gems in little-endian byte order (16 bit)
-            saveData.save16bitUint(0x0314,(uint)goldNumeric.Value);
-            saveData.save16bitUint(0x021C,(uint)goldNumeric.Value);
+            uint gold = (uint)Math.Max(goldNumeric.Minimum, Math.Min(goldNumeric.Value, goldNumeric.Maximum));
+            saveData.save16bitUint(0x0314, gold);
+            saveData.save16bitUint(0x021C, gold);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

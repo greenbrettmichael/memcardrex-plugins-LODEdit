@@ -57,6 +57,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SaveData.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="aboutWindow.resx">
