@@ -48,6 +48,15 @@ namespace LODEdit
             party1.SelectedIndex = saveData.load32bitInt(0x0208) + 1;
             party2.SelectedIndex = saveData.load32bitInt(0x020C) + 1;
             party3.SelectedIndex = saveData.load32bitInt(0x0210) + 1;
+            CharacterStats characterStats = new CharacterStats(CharacterID.Dart, saveData);
+            lvl.Value = characterStats.lvl;
+            exp.Value = characterStats.exp;
+            dlvl.Value = characterStats.dlvl;
+            dexp.Value = characterStats.dexp;
+            hp.Value = characterStats.hp;
+            mp.Value = characterStats.mp;
+            sp.Value = characterStats.sp;
+            // TODO Dart Max HP
         }
 
         private void updateData()
@@ -75,6 +84,16 @@ namespace LODEdit
             saveData.save32bitInt(0x030C, partySelect2);
             saveData.save32bitInt(0x0210, partySelect3);
             saveData.save32bitInt(0x0310, partySelect3);
+            CharacterStats characterStats = new CharacterStats(CharacterID.Dart, saveData);
+            characterStats.lvl = (int)Math.Max(lvl.Minimum, Math.Min(lvl.Value, lvl.Maximum));
+            characterStats.exp = (int)Math.Max(exp.Minimum, Math.Min(exp.Value, exp.Maximum));
+            characterStats.dlvl = (int)Math.Max(dlvl.Minimum, Math.Min(dlvl.Value, dlvl.Maximum));
+            characterStats.dexp = (int)Math.Max(dexp.Minimum, Math.Min(dexp.Value, dexp.Maximum));
+            characterStats.hp = (int)Math.Max(hp.Minimum, Math.Min(hp.Value, hp.Maximum));
+            characterStats.mp = (int)Math.Max(mp.Minimum, Math.Min(mp.Value, mp.Maximum));
+            characterStats.sp = (int)Math.Max(sp.Minimum, Math.Min(sp.Value, sp.Maximum));
+            characterStats.updateData();
+            // TODO darts stats for save info
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -93,6 +112,16 @@ namespace LODEdit
         private void mainWindow_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(80, 80, 80)), 0, 0, this.Width, 30);
+        }
+
+        private void addition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void character_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
