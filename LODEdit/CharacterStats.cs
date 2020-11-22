@@ -107,6 +107,10 @@ namespace LODEdit
         private Int32 dexpOffset = 14;
         private Int32 lvlOffset = 18;
         private Int32 dlvlOffset = 19;
+        private Int32 dartSaveInfoIndex = 0x0214;
+        private Int32 dartSaveInfoDLvlOffset = 1;
+        private Int32 dartSaveInfoHPOffset = 2;
+        private Int32 dartSaveInfoMaxHPOffset = 4;
 
         public int lvl;
         public int exp;
@@ -115,6 +119,8 @@ namespace LODEdit
         public int hp;
         public int mp;
         public int sp;
+
+        public int dartMaxHp;
 
         public List<Addition> additions = new List<Addition>();
 
@@ -175,6 +181,10 @@ namespace LODEdit
                 default:
                     break;
             }
+            if(characterID == CharacterID.Dart)
+            {
+                dartMaxHp = saveData.load16bitInt(dartSaveInfoIndex + dartSaveInfoMaxHPOffset);
+            }
         }
 
         public void updateData()
@@ -190,6 +200,13 @@ namespace LODEdit
             foreach (Addition addition in additions)
             {
                 saveData.save8bitInt(addition.index, addition.hits);
+            }
+            if (characterID == CharacterID.Dart)
+            {
+                saveData.save8bitInt(dartSaveInfoIndex, lvl);
+                saveData.save8bitInt(dartSaveInfoIndex + dartSaveInfoDLvlOffset, dlvl);
+                saveData.save16bitInt(dartSaveInfoIndex + dartSaveInfoHPOffset, hp);
+                saveData.save16bitInt(dartSaveInfoIndex + dartSaveInfoMaxHPOffset, dartMaxHp);
             }
         }
     }

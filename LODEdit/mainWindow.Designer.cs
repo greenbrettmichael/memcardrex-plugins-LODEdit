@@ -303,7 +303,7 @@
             // 
             // sp
             // 
-            this.sp.Location = new System.Drawing.Point(513, 84);
+            this.sp.Location = new System.Drawing.Point(512, 109);
             this.sp.Maximum = new decimal(new int[] {
             500,
             0,
@@ -320,7 +320,7 @@
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(439, 86);
+            this.label12.Location = new System.Drawing.Point(438, 111);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(68, 13);
             this.label12.TabIndex = 135;
@@ -329,12 +329,7 @@
             // 
             // mp
             // 
-            this.mp.Location = new System.Drawing.Point(513, 61);
-            this.mp.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.mp.Location = new System.Drawing.Point(512, 86);
             this.mp.Name = "mp";
             this.mp.Size = new System.Drawing.Size(72, 20);
             this.mp.TabIndex = 134;
@@ -346,7 +341,7 @@
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(439, 63);
+            this.label11.Location = new System.Drawing.Point(438, 88);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(68, 13);
             this.label11.TabIndex = 133;
@@ -355,14 +350,9 @@
             // 
             // dartMaxHP
             // 
-            this.dartMaxHP.Location = new System.Drawing.Point(109, 145);
+            this.dartMaxHP.Location = new System.Drawing.Point(512, 61);
             this.dartMaxHP.Maximum = new decimal(new int[] {
             9999,
-            0,
-            0,
-            0});
-            this.dartMaxHP.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});
@@ -377,11 +367,11 @@
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(12, 147);
+            this.label10.Location = new System.Drawing.Point(439, 61);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(91, 13);
+            this.label10.Size = new System.Drawing.Size(67, 15);
             this.label10.TabIndex = 131;
-            this.label10.Text = "Dart Max HP:";
+            this.label10.Text = "Max HP:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // hp
@@ -389,11 +379,6 @@
             this.hp.Location = new System.Drawing.Point(512, 37);
             this.hp.Maximum = new decimal(new int[] {
             9999,
-            0,
-            0,
-            0});
-            this.hp.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});

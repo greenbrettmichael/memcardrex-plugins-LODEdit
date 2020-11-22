@@ -75,6 +75,16 @@ namespace LODEdit
             hp.Value = saveCharacter.hp;
             mp.Value = saveCharacter.mp;
             sp.Value = saveCharacter.sp;
+            if(selectedCharacter == CharacterID.Dart)
+            {
+                dartMaxHP.Value = saveCharacter.dartMaxHp;
+                dartMaxHP.Enabled = true;
+            }
+            else
+            {
+                dartMaxHP.Value = 0;
+                dartMaxHP.Enabled = false;
+            }
 
             addition.Items.Clear();
             selectedAddition = 0;
@@ -85,25 +95,34 @@ namespace LODEdit
             loadAddition();
         }
 
+        private decimal clampNumeric(NumericUpDown numCtrl)
+        {
+            return Math.Max(numCtrl.Minimum, Math.Min(numCtrl.Value, numCtrl.Maximum));
+        }
+
         private void updateAddition()
         {
             CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
             if (saveCharacter.additions.Count > selectedAddition)
             {
-                saveCharacter.additions[selectedAddition].hits = (int)Math.Max(hits.Minimum, Math.Min(hits.Value, hits.Maximum));
+                saveCharacter.additions[selectedAddition].hits = (int)clampNumeric(hits);
             }
         }
 
         private void updateCharacterStats()
         {
             CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
-            saveCharacter.lvl = (int)Math.Max(lvl.Minimum, Math.Min(lvl.Value, lvl.Maximum));
-            saveCharacter.exp = (int)Math.Max(exp.Minimum, Math.Min(exp.Value, exp.Maximum));
-            saveCharacter.dlvl = (int)Math.Max(dlvl.Minimum, Math.Min(dlvl.Value, dlvl.Maximum));
-            saveCharacter.dexp = (int)Math.Max(dexp.Minimum, Math.Min(dexp.Value, dexp.Maximum));
-            saveCharacter.hp = (int)Math.Max(hp.Minimum, Math.Min(hp.Value, hp.Maximum));
-            saveCharacter.mp = (int)Math.Max(mp.Minimum, Math.Min(mp.Value, mp.Maximum));
-            saveCharacter.sp = (int)Math.Max(sp.Minimum, Math.Min(sp.Value, sp.Maximum));
+            saveCharacter.lvl = (int)clampNumeric(lvl);
+            saveCharacter.exp = (int)clampNumeric(exp);
+            saveCharacter.dlvl = (int)clampNumeric(dlvl);
+            saveCharacter.dexp = (int)clampNumeric(dexp);
+            saveCharacter.hp = (int)clampNumeric(hp);
+            saveCharacter.mp = (int)clampNumeric(mp);
+            saveCharacter.sp = (int)clampNumeric(sp);
+            if(selectedCharacter == CharacterID.Dart)
+            {
+                saveCharacter.dartMaxHp = (int)clampNumeric(dartMaxHP);
+            }
 
             updateAddition();
         }
@@ -127,12 +146,12 @@ namespace LODEdit
 
         private void updateData()
         {
-            saveGold.gold = (uint)Math.Max(goldNumeric.Minimum, Math.Min(goldNumeric.Value, goldNumeric.Maximum));
+            saveGold.gold = (uint)clampNumeric(goldNumeric);
             saveGold.updateData();
 
-            saveTime.hours = (int)Math.Max(timeHours.Minimum, Math.Min(timeHours.Value, timeHours.Maximum));
-            saveTime.minutes = (int)Math.Max(timeMinutes.Minimum, Math.Min(timeMinutes.Value, timeMinutes.Maximum));
-            saveTime.seconds = (int)Math.Max(timeSeconds.Minimum, Math.Min(timeSeconds.Value, timeSeconds.Maximum));
+            saveTime.hours = (int)clampNumeric(timeHours);
+            saveTime.minutes = (int)clampNumeric(timeMinutes);
+            saveTime.seconds = (int)clampNumeric(timeSeconds);
             saveTime.updateData();
 
             saveParty.party1 = (CharacterID)party1.SelectedIndex - 1;
