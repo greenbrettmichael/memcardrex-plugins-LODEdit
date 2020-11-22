@@ -36,6 +36,12 @@
             this.timeHours = new System.Windows.Forms.NumericUpDown();
             this.timeMinutes = new System.Windows.Forms.NumericUpDown();
             this.timeSeconds = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.party1 = new System.Windows.Forms.ListBox();
+            this.party2 = new System.Windows.Forms.ListBox();
+            this.party3 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.goldNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeMinutes)).BeginInit();
@@ -128,11 +134,101 @@
             this.timeSeconds.Size = new System.Drawing.Size(36, 20);
             this.timeSeconds.TabIndex = 103;
             // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(12, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.TabIndex = 104;
+            this.label2.Text = "Party 1:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(83, 63);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(68, 13);
+            this.label3.TabIndex = 105;
+            this.label3.Text = "Party 2:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(157, 63);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(68, 13);
+            this.label4.TabIndex = 106;
+            this.label4.Text = "Party 3:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // party1
+            // 
+            this.party1.FormattingEnabled = true;
+            this.party1.Items.AddRange(new object[] {
+            "None",
+            "Dart",
+            "Lavitz",
+            "Shana",
+            "Rose",
+            "Haschel",
+            "Albert",
+            "Meru",
+            "Kongol",
+            "Miranda"});
+            this.party1.Location = new System.Drawing.Point(15, 79);
+            this.party1.Name = "party1";
+            this.party1.Size = new System.Drawing.Size(65, 56);
+            this.party1.TabIndex = 107;
+            // 
+            // party2
+            // 
+            this.party2.FormattingEnabled = true;
+            this.party2.Items.AddRange(new object[] {
+            "None",
+            "Dart",
+            "Lavitz",
+            "Shana",
+            "Rose",
+            "Haschel",
+            "Albert",
+            "Meru",
+            "Kongol",
+            "Miranda"});
+            this.party2.Location = new System.Drawing.Point(86, 79);
+            this.party2.Name = "party2";
+            this.party2.Size = new System.Drawing.Size(65, 56);
+            this.party2.TabIndex = 108;
+            // 
+            // party3
+            // 
+            this.party3.FormattingEnabled = true;
+            this.party3.Items.AddRange(new object[] {
+            "None",
+            "Dart",
+            "Lavitz",
+            "Shana",
+            "Rose",
+            "Haschel",
+            "Albert",
+            "Meru",
+            "Kongol",
+            "Miranda"});
+            this.party3.Location = new System.Drawing.Point(157, 79);
+            this.party3.Name = "party3";
+            this.party3.Size = new System.Drawing.Size(65, 56);
+            this.party3.TabIndex = 109;
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(280, 197);
+            this.Controls.Add(this.party3);
+            this.Controls.Add(this.party2);
+            this.Controls.Add(this.party1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.timeSeconds);
             this.Controls.Add(this.timeMinutes);
             this.Controls.Add(this.timeHours);
@@ -167,5 +263,11 @@
         private System.Windows.Forms.NumericUpDown timeHours;
         private System.Windows.Forms.NumericUpDown timeMinutes;
         private System.Windows.Forms.NumericUpDown timeSeconds;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox party1;
+        private System.Windows.Forms.ListBox party2;
+        private System.Windows.Forms.ListBox party3;
     }
 }

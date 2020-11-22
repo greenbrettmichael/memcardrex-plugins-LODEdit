@@ -45,6 +45,9 @@ namespace LODEdit
             timeHours.Value = Convert.ToDecimal(gameTimeSpan.TotalHours);
             timeMinutes.Value = gameTimeSpan.Minutes;
             timeSeconds.Value = gameTimeSpan.Seconds;
+            party1.SelectedIndex = saveData.load32bitInt(0x0208) + 1;
+            party2.SelectedIndex = saveData.load32bitInt(0x020C) + 1;
+            party3.SelectedIndex = saveData.load32bitInt(0x0210) + 1;
         }
 
         private void updateData()
@@ -63,6 +66,15 @@ namespace LODEdit
             gameTime *= 60; // seconds to frames
             saveData.save32bitInt(0x0320, gameTime);
             saveData.save32bitInt(0x0220, gameTime);
+            int partySelect1 = party1.SelectedIndex - 1;
+            int partySelect2 = party2.SelectedIndex - 1;
+            int partySelect3 = party3.SelectedIndex - 1;
+            saveData.save32bitInt(0x0208, partySelect1);
+            saveData.save32bitInt(0x0308, partySelect1);
+            saveData.save32bitInt(0x020C, partySelect2);
+            saveData.save32bitInt(0x030C, partySelect2);
+            saveData.save32bitInt(0x0210, partySelect3);
+            saveData.save32bitInt(0x0310, partySelect3);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
