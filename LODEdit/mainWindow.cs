@@ -11,9 +11,12 @@ namespace LODEdit
     public partial class mainWindow : Form
     {
         private bool confirmedFlag = false;
-        private bool firstRun = true;
         private int currentSaveSlot = 0;
         private SaveData saveData = null;
+        Gold saveGold = null;
+        TimePlayed saveTime = null;
+        Party saveParty = null;
+        List<CharacterStats> saveCharacters = new List<CharacterStats>();
 
         public mainWindow()
         {
@@ -27,73 +30,83 @@ namespace LODEdit
             #endif
             this.Text = windowTitle;
             this.saveData = new SaveData(gameSaveData, currentSaveSlot);
+            this.saveGold = new Gold(saveData);
+            this.saveTime = new TimePlayed(saveData);
+            this.saveParty = new Party(saveData);
+            foreach (CharacterID characterID in Enum.GetValues(typeof(CharacterID)))
+            {
+                if(characterID == CharacterID.None)
+                {
+                    continue;
+                }
+                this.saveCharacters.Add(new CharacterStats(characterID, saveData));
+            }
             loadData();
-
-            firstRun = true;
 
             this.ShowDialog();
 
             if (confirmedFlag == true) return this.saveData.getData(); else return null;
         }
 
+        private void loadCharacterStats(CharacterID characterID)
+        {
+            CharacterStats saveCharacter = saveCharacters[(int)characterID];
+            lvl.Value = saveCharacter.lvl;
+            exp.Value = saveCharacter.exp;
+            dlvl.Value = saveCharacter.dlvl;
+            dexp.Value = saveCharacter.dexp;
+            hp.Value = saveCharacter.hp;
+            mp.Value = saveCharacter.mp;
+            sp.Value = saveCharacter.sp;
+        }
+
+        private void updateCharacterStats(CharacterID characterID)
+        {
+            CharacterStats saveCharacter = saveCharacters[(int)characterID];
+            saveCharacter.lvl = (int)Math.Max(lvl.Minimum, Math.Min(lvl.Value, lvl.Maximum));
+            saveCharacter.exp = (int)Math.Max(exp.Minimum, Math.Min(exp.Value, exp.Maximum));
+            saveCharacter.dlvl = (int)Math.Max(dlvl.Minimum, Math.Min(dlvl.Value, dlvl.Maximum));
+            saveCharacter.dexp = (int)Math.Max(dexp.Minimum, Math.Min(dexp.Value, dexp.Maximum));
+            saveCharacter.hp = (int)Math.Max(hp.Minimum, Math.Min(hp.Value, hp.Maximum));
+            saveCharacter.mp = (int)Math.Max(mp.Minimum, Math.Min(mp.Value, mp.Maximum));
+            saveCharacter.sp = (int)Math.Max(sp.Minimum, Math.Min(sp.Value, sp.Maximum));
+        }
+
         private void loadData()
         {
-            goldNumeric.Value = saveData.load16bitUint(0x0314);
-            // LOD time is a bit weird... base value is frames (1s = 60 frames)
-            Int32 gameTime = saveData.load32bitInt(0x0320) / 60;
-            TimeSpan gameTimeSpan = TimeSpan.FromSeconds(gameTime);
-            timeHours.Value = Convert.ToDecimal(gameTimeSpan.TotalHours);
-            timeMinutes.Value = gameTimeSpan.Minutes;
-            timeSeconds.Value = gameTimeSpan.Seconds;
-            party1.SelectedIndex = saveData.load32bitInt(0x0208) + 1;
-            party2.SelectedIndex = saveData.load32bitInt(0x020C) + 1;
-            party3.SelectedIndex = saveData.load32bitInt(0x0210) + 1;
-            CharacterStats characterStats = new CharacterStats(CharacterID.Dart, saveData);
-            lvl.Value = characterStats.lvl;
-            exp.Value = characterStats.exp;
-            dlvl.Value = characterStats.dlvl;
-            dexp.Value = characterStats.dexp;
-            hp.Value = characterStats.hp;
-            mp.Value = characterStats.mp;
-            sp.Value = characterStats.sp;
-            // TODO Dart Max HP
+            goldNumeric.Value = saveGold.gold;
+
+            timeHours.Value = saveTime.hours;
+            timeMinutes.Value = saveTime.minutes;
+            timeSeconds.Value = saveTime.seconds;
+
+            party1.SelectedIndex = (int)saveParty.party1 + 1;
+            party2.SelectedIndex = (int)saveParty.party2 + 1;
+            party3.SelectedIndex = (int)saveParty.party3 + 1;
+
+            loadCharacterStats(CharacterID.Dart);
         }
 
         private void updateData()
         {
-            uint gold = (uint)Math.Max(goldNumeric.Minimum, Math.Min(goldNumeric.Value, goldNumeric.Maximum));
-            saveData.save16bitUint(0x0314, gold);
-            saveData.save16bitUint(0x021C, gold);
-            Int32 hours = (Int32)Math.Max(timeHours.Minimum, Math.Min(timeHours.Value, timeHours.Maximum));
-            Int32 minutes = (Int32)Math.Max(timeMinutes.Minimum, Math.Min(timeMinutes.Value, timeMinutes.Maximum));
-            Int32 seconds = (Int32)Math.Max(timeSeconds.Minimum, Math.Min(timeSeconds.Value, timeSeconds.Maximum));
-            // LOD time is a bit weird... base value is frames (1s = 60 frames)
-            Int32 gameTime = hours * 60; // hours to minutes
-            gameTime += minutes;
-            gameTime *= 60; // minutes to seconds
-            gameTime += seconds;
-            gameTime *= 60; // seconds to frames
-            saveData.save32bitInt(0x0320, gameTime);
-            saveData.save32bitInt(0x0220, gameTime);
-            int partySelect1 = party1.SelectedIndex - 1;
-            int partySelect2 = party2.SelectedIndex - 1;
-            int partySelect3 = party3.SelectedIndex - 1;
-            saveData.save32bitInt(0x0208, partySelect1);
-            saveData.save32bitInt(0x0308, partySelect1);
-            saveData.save32bitInt(0x020C, partySelect2);
-            saveData.save32bitInt(0x030C, partySelect2);
-            saveData.save32bitInt(0x0210, partySelect3);
-            saveData.save32bitInt(0x0310, partySelect3);
-            CharacterStats characterStats = new CharacterStats(CharacterID.Dart, saveData);
-            characterStats.lvl = (int)Math.Max(lvl.Minimum, Math.Min(lvl.Value, lvl.Maximum));
-            characterStats.exp = (int)Math.Max(exp.Minimum, Math.Min(exp.Value, exp.Maximum));
-            characterStats.dlvl = (int)Math.Max(dlvl.Minimum, Math.Min(dlvl.Value, dlvl.Maximum));
-            characterStats.dexp = (int)Math.Max(dexp.Minimum, Math.Min(dexp.Value, dexp.Maximum));
-            characterStats.hp = (int)Math.Max(hp.Minimum, Math.Min(hp.Value, hp.Maximum));
-            characterStats.mp = (int)Math.Max(mp.Minimum, Math.Min(mp.Value, mp.Maximum));
-            characterStats.sp = (int)Math.Max(sp.Minimum, Math.Min(sp.Value, sp.Maximum));
-            characterStats.updateData();
-            // TODO darts stats for save info
+            saveGold.gold = (uint)Math.Max(goldNumeric.Minimum, Math.Min(goldNumeric.Value, goldNumeric.Maximum));
+            saveGold.updateData();
+
+            saveTime.hours = (int)Math.Max(timeHours.Minimum, Math.Min(timeHours.Value, timeHours.Maximum));
+            saveTime.minutes = (int)Math.Max(timeMinutes.Minimum, Math.Min(timeMinutes.Value, timeMinutes.Maximum));
+            saveTime.seconds = (int)Math.Max(timeSeconds.Minimum, Math.Min(timeSeconds.Value, timeSeconds.Maximum));
+            saveTime.updateData();
+
+            saveParty.party1 = (CharacterID)party1.SelectedIndex - 1;
+            saveParty.party2 = (CharacterID)party2.SelectedIndex - 1;
+            saveParty.party3 = (CharacterID)party3.SelectedIndex - 1;
+            saveParty.updateData();
+
+            updateCharacterStats(CharacterID.Dart);
+            foreach (CharacterStats saveCharacter in saveCharacters)
+            {
+                saveCharacter.updateData();
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

@@ -94,6 +94,12 @@ namespace LODEdit
         private CharacterID characterID;
         private SaveData saveData;
         private Int32[] characterIndexes = { 0x05AC, 0x05D8, 0x0604, 0x0630, 0x065C, 0x0688, 0x06B4, 0x06E0, 0x070C };
+        private Int32 hpOffset = 8;
+        private Int32 mpOffset = 10;
+        private Int32 spOffset = 12;
+        private Int32 dexpOffset = 14;
+        private Int32 lvlOffset = 18;
+        private Int32 dlvlOffset = 19;
 
         public int lvl;
         public int exp;
@@ -115,36 +121,24 @@ namespace LODEdit
         {
             Int32 baseIndex = characterIndexes[(int)characterID];
             exp = saveData.load32bitInt(baseIndex);
-            baseIndex += 8;
-            hp = saveData.load16bitInt(baseIndex);
-            baseIndex += 2;
-            mp = saveData.load16bitInt(baseIndex);
-            baseIndex += 2;
-            sp = saveData.load16bitInt(baseIndex);
-            baseIndex += 2;
-            dexp = saveData.load16bitInt(baseIndex);
-            baseIndex += 4;
-            lvl = saveData.load8bitInt(baseIndex);
-            baseIndex += 1;
-            dlvl = saveData.load8bitInt(baseIndex);
+            hp = saveData.load16bitInt(baseIndex + hpOffset);
+            mp = saveData.load16bitInt(baseIndex + mpOffset);
+            sp = saveData.load16bitInt(baseIndex + spOffset);
+            dexp = saveData.load16bitInt(baseIndex + dexpOffset);
+            lvl = saveData.load8bitInt(baseIndex + lvlOffset);
+            dlvl = saveData.load8bitInt(baseIndex + dlvlOffset);
         }
 
         public void updateData()
         {
             Int32 baseIndex = characterIndexes[(int)characterID];
             saveData.save32bitInt(baseIndex, exp);
-            baseIndex += 8;
-            saveData.save16bitInt(baseIndex, hp);
-            baseIndex += 2;
-            saveData.save16bitInt(baseIndex, mp);
-            baseIndex += 2;
-            saveData.save16bitInt(baseIndex, sp);
-            baseIndex += 2;
-            saveData.save16bitInt(baseIndex, dexp);
-            baseIndex += 4;
-            saveData.save8bitInt(baseIndex, lvl);
-            baseIndex += 1;
-            saveData.save8bitInt(baseIndex, dlvl);
+            saveData.save16bitInt(baseIndex + hpOffset, hp);
+            saveData.save16bitInt(baseIndex + mpOffset, mp);
+            saveData.save16bitInt(baseIndex + spOffset, sp);
+            saveData.save16bitInt(baseIndex + dexpOffset, dexp);
+            saveData.save8bitInt(baseIndex + lvlOffset, lvl);
+            saveData.save8bitInt(baseIndex + dlvlOffset, dlvl);
         }
     }
 }
