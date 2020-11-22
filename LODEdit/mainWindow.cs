@@ -11,9 +11,14 @@ namespace LODEdit
     public partial class mainWindow : Form
     {
         private bool confirmedFlag = false;
-        private bool firstRun = true;
         private int currentSaveSlot = 0;
         private SaveData saveData = null;
+        Gold saveGold = null;
+        TimePlayed saveTime = null;
+        Party saveParty = null;
+        List<CharacterStats> saveCharacters = new List<CharacterStats>();
+        CharacterID selectedCharacter = CharacterID.Dart;
+        int selectedAddition = 0;
 
         public mainWindow()
         {
@@ -27,54 +32,138 @@ namespace LODEdit
             #endif
             this.Text = windowTitle;
             this.saveData = new SaveData(gameSaveData, currentSaveSlot);
+            this.saveGold = new Gold(saveData);
+            this.saveTime = new TimePlayed(saveData);
+            this.saveParty = new Party(saveData);
+            foreach (CharacterID characterID in Enum.GetValues(typeof(CharacterID)))
+            {
+                if(characterID == CharacterID.None)
+                {
+                    continue;
+                }
+                this.saveCharacters.Add(new CharacterStats(characterID, saveData));
+            }
             loadData();
-
-            firstRun = true;
 
             this.ShowDialog();
 
             if (confirmedFlag == true) return this.saveData.getData(); else return null;
         }
 
+        private void loadAddition()
+        {
+            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
+            if(saveCharacter.additions.Count > selectedAddition)
+            {
+                hits.Value = saveCharacter.additions[selectedAddition].hits;
+                addition.Text = saveCharacter.additions[selectedAddition].name;
+            }
+            else
+            {
+                hits.Value = 0;
+                addition.Text = "";
+            }
+        }
+
+        private void loadCharacterStats()
+        {
+            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
+            lvl.Value = saveCharacter.lvl;
+            exp.Value = saveCharacter.exp;
+            dlvl.Value = saveCharacter.dlvl;
+            dexp.Value = saveCharacter.dexp;
+            hp.Value = saveCharacter.hp;
+            mp.Value = saveCharacter.mp;
+            sp.Value = saveCharacter.sp;
+            if(selectedCharacter == CharacterID.Dart)
+            {
+                dartMaxHP.Value = saveCharacter.dartMaxHp;
+                dartMaxHP.Enabled = true;
+            }
+            else
+            {
+                dartMaxHP.Value = 0;
+                dartMaxHP.Enabled = false;
+            }
+
+            addition.Items.Clear();
+            selectedAddition = 0;
+            foreach (Addition characterAddition in saveCharacter.additions)
+            {
+                addition.Items.Add(characterAddition.name);
+            }
+            loadAddition();
+        }
+
+        private decimal clampNumeric(NumericUpDown numCtrl)
+        {
+            return Math.Max(numCtrl.Minimum, Math.Min(numCtrl.Value, numCtrl.Maximum));
+        }
+
+        private void updateAddition()
+        {
+            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
+            if (saveCharacter.additions.Count > selectedAddition)
+            {
+                saveCharacter.additions[selectedAddition].hits = (int)clampNumeric(hits);
+            }
+        }
+
+        private void updateCharacterStats()
+        {
+            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
+            saveCharacter.lvl = (int)clampNumeric(lvl);
+            saveCharacter.exp = (int)clampNumeric(exp);
+            saveCharacter.dlvl = (int)clampNumeric(dlvl);
+            saveCharacter.dexp = (int)clampNumeric(dexp);
+            saveCharacter.hp = (int)clampNumeric(hp);
+            saveCharacter.mp = (int)clampNumeric(mp);
+            saveCharacter.sp = (int)clampNumeric(sp);
+            if(selectedCharacter == CharacterID.Dart)
+            {
+                saveCharacter.dartMaxHp = (int)clampNumeric(dartMaxHP);
+            }
+
+            updateAddition();
+        }
+
         private void loadData()
         {
-            goldNumeric.Value = saveData.load16bitUint(0x0314);
-            // LOD time is a bit weird... base value is frames (1s = 60 frames)
-            Int32 gameTime = saveData.load32bitInt(0x0320) / 60;
-            TimeSpan gameTimeSpan = TimeSpan.FromSeconds(gameTime);
-            timeHours.Value = Convert.ToDecimal(gameTimeSpan.TotalHours);
-            timeMinutes.Value = gameTimeSpan.Minutes;
-            timeSeconds.Value = gameTimeSpan.Seconds;
-            party1.SelectedIndex = saveData.load32bitInt(0x0208) + 1;
-            party2.SelectedIndex = saveData.load32bitInt(0x020C) + 1;
-            party3.SelectedIndex = saveData.load32bitInt(0x0210) + 1;
+            goldNumeric.Value = saveGold.gold;
+
+            timeHours.Value = saveTime.hours;
+            timeMinutes.Value = saveTime.minutes;
+            timeSeconds.Value = saveTime.seconds;
+
+            party1.SelectedIndex = (int)saveParty.party1 + 1;
+            party2.SelectedIndex = (int)saveParty.party2 + 1;
+            party3.SelectedIndex = (int)saveParty.party3 + 1;
+
+            loadCharacterStats();
+            character.SelectedIndex = (int)selectedCharacter;
+            addition.SelectedIndex = selectedAddition;
         }
 
         private void updateData()
         {
-            uint gold = (uint)Math.Max(goldNumeric.Minimum, Math.Min(goldNumeric.Value, goldNumeric.Maximum));
-            saveData.save16bitUint(0x0314, gold);
-            saveData.save16bitUint(0x021C, gold);
-            Int32 hours = (Int32)Math.Max(timeHours.Minimum, Math.Min(timeHours.Value, timeHours.Maximum));
-            Int32 minutes = (Int32)Math.Max(timeMinutes.Minimum, Math.Min(timeMinutes.Value, timeMinutes.Maximum));
-            Int32 seconds = (Int32)Math.Max(timeSeconds.Minimum, Math.Min(timeSeconds.Value, timeSeconds.Maximum));
-            // LOD time is a bit weird... base value is frames (1s = 60 frames)
-            Int32 gameTime = hours * 60; // hours to minutes
-            gameTime += minutes;
-            gameTime *= 60; // minutes to seconds
-            gameTime += seconds;
-            gameTime *= 60; // seconds to frames
-            saveData.save32bitInt(0x0320, gameTime);
-            saveData.save32bitInt(0x0220, gameTime);
-            int partySelect1 = party1.SelectedIndex - 1;
-            int partySelect2 = party2.SelectedIndex - 1;
-            int partySelect3 = party3.SelectedIndex - 1;
-            saveData.save32bitInt(0x0208, partySelect1);
-            saveData.save32bitInt(0x0308, partySelect1);
-            saveData.save32bitInt(0x020C, partySelect2);
-            saveData.save32bitInt(0x030C, partySelect2);
-            saveData.save32bitInt(0x0210, partySelect3);
-            saveData.save32bitInt(0x0310, partySelect3);
+            saveGold.gold = (uint)clampNumeric(goldNumeric);
+            saveGold.updateData();
+
+            saveTime.hours = (int)clampNumeric(timeHours);
+            saveTime.minutes = (int)clampNumeric(timeMinutes);
+            saveTime.seconds = (int)clampNumeric(timeSeconds);
+            saveTime.updateData();
+
+            saveParty.party1 = (CharacterID)party1.SelectedIndex - 1;
+            saveParty.party2 = (CharacterID)party2.SelectedIndex - 1;
+            saveParty.party3 = (CharacterID)party3.SelectedIndex - 1;
+            saveParty.updateData();
+
+            updateCharacterStats();
+            foreach (CharacterStats saveCharacter in saveCharacters)
+            {
+                saveCharacter.updateData();
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -93,6 +182,20 @@ namespace LODEdit
         private void mainWindow_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(80, 80, 80)), 0, 0, this.Width, 30);
+        }
+
+        private void addition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateAddition();
+            selectedAddition = addition.SelectedIndex;
+            loadAddition();
+        }
+
+        private void character_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateCharacterStats();
+            selectedCharacter = (CharacterID)character.SelectedIndex;
+            loadCharacterStats();
         }
     }
 }
