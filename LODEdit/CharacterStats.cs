@@ -11,7 +11,7 @@ namespace LODEdit
         Lavitz,
         Shana,
         Rose,
-        Heschel,
+        Haschel,
         Albert,
         Meru,
         Kongol,
@@ -20,7 +20,7 @@ namespace LODEdit
 
     enum Dart_Additions
     {
-        Double_Slash,
+        Double_Slash = 0x05CE,
         Volcano,
         Burning_Rush,
         Crush_Dance,
@@ -31,7 +31,7 @@ namespace LODEdit
 
     enum Lavitz_Additions
     {
-        Harpoon,
+        Harpoon = 0x05FA,
         Spinning_Cane,
         Rod_Typhoon,
         Gust_of_Wind_Dance,
@@ -44,7 +44,7 @@ namespace LODEdit
 
     enum Rose_Additions
     {
-        Whip_Smack,
+        Whip_Smack = 0x0652,
         More_and_More,
         Hard_Blade,
         Demons_Dance
@@ -52,7 +52,7 @@ namespace LODEdit
 
     enum Haschel_Additions
     {
-        Double_Punch,
+        Double_Punch = 0x067E,
         Flurry_of_Styx,
         Summon_Four_Gods,
         Five_Ring_Shattering,
@@ -62,7 +62,7 @@ namespace LODEdit
 
     enum Albert_Additions
     {
-        Harpoon,
+        Harpoon = 0x06AA,
         Spinning_Cane,
         Rod_Typhoon,
         Gust_of_Wind_Dance,
@@ -71,7 +71,7 @@ namespace LODEdit
 
     enum Meru_Additions
     {
-        Double_Smack,
+        Double_Smack = 0x06D6,
         Hammer_Spin,
         Cool_Boogie,
         Cats_Cradle,
@@ -80,13 +80,20 @@ namespace LODEdit
 
     enum Kongol_Additions
     {
-        Pursuit,
+        Pursuit = 0x0702,
         Inferno,
         Bone_Crush
     }
 
     enum Miranda_Additions
     {
+    }
+
+    public class Addition
+    {
+        public Int32 index;
+        public String name;
+        public int hits;
     }
 
     public class CharacterStats
@@ -109,12 +116,27 @@ namespace LODEdit
         public int mp;
         public int sp;
 
+        public List<Addition> additions = new List<Addition>();
+
         public CharacterStats(CharacterID characterID, SaveData saveData)
         {
             this.characterID = characterID;
             this.saveData = saveData;
 
             loadData();
+        }
+
+        private void populateAdditions<AdditionType>()
+        {
+            additions.Clear();
+            foreach (AdditionType addition in Enum.GetValues(typeof(AdditionType)))
+            {
+                Addition newAddition = new Addition();
+                newAddition.index = Convert.ToInt32(addition);
+                newAddition.name = addition.ToString();
+                newAddition.hits = saveData.load8bitInt(newAddition.index);
+                additions.Add(newAddition);
+            }
         }
 
         private void loadData()
@@ -127,6 +149,32 @@ namespace LODEdit
             dexp = saveData.load16bitInt(baseIndex + dexpOffset);
             lvl = saveData.load8bitInt(baseIndex + lvlOffset);
             dlvl = saveData.load8bitInt(baseIndex + dlvlOffset);
+            switch (characterID)
+            {
+                case CharacterID.Dart:
+                    populateAdditions<Dart_Additions>();
+                    break;
+                case CharacterID.Lavitz:
+                    populateAdditions<Lavitz_Additions>();
+                    break;
+                case CharacterID.Rose:
+                    populateAdditions<Rose_Additions>();
+                    break;
+                case CharacterID.Haschel:
+                    populateAdditions<Haschel_Additions>();
+                    break;
+                case CharacterID.Albert:
+                    populateAdditions<Albert_Additions>();
+                    break;
+                case CharacterID.Meru:
+                    populateAdditions<Meru_Additions>();
+                    break;
+                case CharacterID.Kongol:
+                    populateAdditions<Kongol_Additions>();
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void updateData()
@@ -139,6 +187,10 @@ namespace LODEdit
             saveData.save16bitInt(baseIndex + dexpOffset, dexp);
             saveData.save8bitInt(baseIndex + lvlOffset, lvl);
             saveData.save8bitInt(baseIndex + dlvlOffset, dlvl);
+            foreach (Addition addition in additions)
+            {
+                saveData.save8bitInt(addition.index, addition.hits);
+            }
         }
     }
 }

@@ -253,12 +253,7 @@
             // 
             this.hits.Location = new System.Drawing.Point(512, 139);
             this.hits.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.hits.Minimum = new decimal(new int[] {
-            1,
+            99,
             0,
             0,
             0});
@@ -295,6 +290,7 @@
             this.addition.Name = "addition";
             this.addition.Size = new System.Drawing.Size(121, 21);
             this.addition.TabIndex = 138;
+            this.addition.SelectedIndexChanged += new System.EventHandler(this.addition_SelectedIndexChanged);
             // 
             // label13
             // 

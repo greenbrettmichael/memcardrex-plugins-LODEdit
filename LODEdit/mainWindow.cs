@@ -17,6 +17,8 @@ namespace LODEdit
         TimePlayed saveTime = null;
         Party saveParty = null;
         List<CharacterStats> saveCharacters = new List<CharacterStats>();
+        CharacterID selectedCharacter = CharacterID.Dart;
+        int selectedAddition = 0;
 
         public mainWindow()
         {
@@ -48,9 +50,24 @@ namespace LODEdit
             if (confirmedFlag == true) return this.saveData.getData(); else return null;
         }
 
-        private void loadCharacterStats(CharacterID characterID)
+        private void loadAddition()
         {
-            CharacterStats saveCharacter = saveCharacters[(int)characterID];
+            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
+            if(saveCharacter.additions.Count > selectedAddition)
+            {
+                hits.Value = saveCharacter.additions[selectedAddition].hits;
+                addition.Text = saveCharacter.additions[selectedAddition].name;
+            }
+            else
+            {
+                hits.Value = 0;
+                addition.Text = "";
+            }
+        }
+
+        private void loadCharacterStats()
+        {
+            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
             lvl.Value = saveCharacter.lvl;
             exp.Value = saveCharacter.exp;
             dlvl.Value = saveCharacter.dlvl;
@@ -58,11 +75,28 @@ namespace LODEdit
             hp.Value = saveCharacter.hp;
             mp.Value = saveCharacter.mp;
             sp.Value = saveCharacter.sp;
+
+            addition.Items.Clear();
+            selectedAddition = 0;
+            foreach (Addition characterAddition in saveCharacter.additions)
+            {
+                addition.Items.Add(characterAddition.name);
+            }
+            loadAddition();
         }
 
-        private void updateCharacterStats(CharacterID characterID)
+        private void updateAddition()
         {
-            CharacterStats saveCharacter = saveCharacters[(int)characterID];
+            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
+            if (saveCharacter.additions.Count > selectedAddition)
+            {
+                saveCharacter.additions[selectedAddition].hits = (int)Math.Max(hits.Minimum, Math.Min(hits.Value, hits.Maximum));
+            }
+        }
+
+        private void updateCharacterStats()
+        {
+            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
             saveCharacter.lvl = (int)Math.Max(lvl.Minimum, Math.Min(lvl.Value, lvl.Maximum));
             saveCharacter.exp = (int)Math.Max(exp.Minimum, Math.Min(exp.Value, exp.Maximum));
             saveCharacter.dlvl = (int)Math.Max(dlvl.Minimum, Math.Min(dlvl.Value, dlvl.Maximum));
@@ -70,6 +104,8 @@ namespace LODEdit
             saveCharacter.hp = (int)Math.Max(hp.Minimum, Math.Min(hp.Value, hp.Maximum));
             saveCharacter.mp = (int)Math.Max(mp.Minimum, Math.Min(mp.Value, mp.Maximum));
             saveCharacter.sp = (int)Math.Max(sp.Minimum, Math.Min(sp.Value, sp.Maximum));
+
+            updateAddition();
         }
 
         private void loadData()
@@ -84,7 +120,9 @@ namespace LODEdit
             party2.SelectedIndex = (int)saveParty.party2 + 1;
             party3.SelectedIndex = (int)saveParty.party3 + 1;
 
-            loadCharacterStats(CharacterID.Dart);
+            loadCharacterStats();
+            character.SelectedIndex = (int)selectedCharacter;
+            addition.SelectedIndex = selectedAddition;
         }
 
         private void updateData()
@@ -102,7 +140,7 @@ namespace LODEdit
             saveParty.party3 = (CharacterID)party3.SelectedIndex - 1;
             saveParty.updateData();
 
-            updateCharacterStats(CharacterID.Dart);
+            updateCharacterStats();
             foreach (CharacterStats saveCharacter in saveCharacters)
             {
                 saveCharacter.updateData();
@@ -129,12 +167,16 @@ namespace LODEdit
 
         private void addition_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            updateAddition();
+            selectedAddition = addition.SelectedIndex;
+            loadAddition();
         }
 
         private void character_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            updateCharacterStats();
+            selectedCharacter = (CharacterID)character.SelectedIndex;
+            loadCharacterStats();
         }
     }
 }
