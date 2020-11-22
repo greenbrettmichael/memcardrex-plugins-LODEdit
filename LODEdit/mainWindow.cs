@@ -8,6 +8,43 @@ using System.Windows.Forms;
 
 namespace LODEdit
 {
+    public class SaveData
+    {
+        private Int32 saveSlotOffset = 0;
+        private byte[] saveData = null;
+
+        public SaveData(byte[] saveData, int currentSaveSlot)
+        {
+            this.saveData = saveData;
+            this.saveSlotOffset = currentSaveSlot * 0x600;
+        }
+        public byte[] getData()
+        {
+            return saveData;
+        }
+
+        public int load8bitInt(Int32 index)
+        {
+            return saveData[index + saveSlotOffset];
+        }
+
+        public int load16bitInt(Int32 index)
+        {
+            return load8bitInt(index) | saveData[index + saveSlotOffset + 1]<<8;
+        }
+
+        public uint load16bitUint(Int32 index)
+        {
+            return (uint)load16bitInt(index);
+        }
+
+        public void save16bitUint(Int32 index, uint value) 
+        {
+            saveData[index + saveSlotOffset] = (byte)(value & 0xFF);
+            saveData[index + saveSlotOffset + 1] = (byte)((value & 0xFF00)>>8);
+        }
+    }
+
     public partial class mainWindow : Form
     {
         //Flag for the return value
@@ -20,7 +57,7 @@ namespace LODEdit
         private int currentSaveSlot = 0;
 
         //A data to edit
-        private byte[] saveData = null;
+        private SaveData saveData = null;
 
         public mainWindow()
         {
@@ -31,8 +68,8 @@ namespace LODEdit
         public byte[] initDialog(string windowTitle, byte[] gameSaveData)
         {
             this.Text = windowTitle;
-            saveData = gameSaveData;
-            loadData(currentSaveSlot);
+            this.saveData = new SaveData(gameSaveData, currentSaveSlot);
+            loadData();
 
             //Init default values
             firstRun = true;
@@ -40,59 +77,22 @@ namespace LODEdit
             this.ShowDialog();
 
             //Check what kind of data should be returned to host application (MemcardRex)
-            if (confirmedFlag == true) return saveData; else return null;
-        }
-
-        //Update slot (save old data, load new data)
-        private void updateSlot(int slotValue)
-        {
-            //Save old data
-            if (firstRun == false) updateData(currentSaveSlot);
-
-            //Update current slot
-            currentSaveSlot = slotValue;
-
-            //Load new data
-            loadData(currentSaveSlot);
-
-            //This is no longer first run
-            firstRun = false;
+            if (confirmedFlag == true) return this.saveData.getData(); else return null;
         }
 
         //Load data from the save
-        private void loadData(int slotNumber)
+        private void loadData()
         {
             //Load gold
-            goldNumeric.Value = saveData[0x0314 + (slotNumber * 0x600)] | saveData[0x0314 + (slotNumber * 0x600) + 1]<<8;
+            goldNumeric.Value = saveData.load16bitUint(0x0314);
         }
 
         //Place data in the save
-        private void updateData(int slotNumber)
+        private void updateData()
         {
             //Store gems in little-endian byte order (16 bit)
-            saveData[0x0314 + (slotNumber * 0x600)] = (byte)((uint)goldNumeric.Value & 0xFF);
-            saveData[0x0314 + (slotNumber * 0x600) + 1] = (byte)(((uint)goldNumeric.Value & 0xFF00)>>8);
-            saveData[0x021C + (slotNumber * 0x600)] = (byte)((uint)goldNumeric.Value & 0xFF);
-            saveData[0x021C + (slotNumber * 0x600) + 1] = (byte)(((uint)goldNumeric.Value & 0xFF00) >> 8);
-
-            calcChecksum(slotNumber);
-        }
-
-        //Calculate checksum for the currently selected slot
-        private void calcChecksum(int slotNumber)
-        {
-            int saveChecksum = 0;
-
-            for (int i = 0; i < 1420; i++)
-            {
-                saveChecksum += saveData[0x280 + (slotNumber * 0x600) + i];
-            }
-
-            //Store checksum in little-endian byte order
-            saveData[0x80C + (slotNumber * 0x600)] = (byte)(saveChecksum & 0xFF);
-            saveData[0x80D + (slotNumber * 0x600)] = (byte)((saveChecksum & 0xFF00) >> 8);
-            saveData[0x80E + (slotNumber * 0x600)] = (byte)((saveChecksum & 0xFF0000) >> 16);
-            saveData[0x80F + (slotNumber * 0x600)] = (byte)((saveChecksum & 0xFF000000) >> 24);
+            saveData.save16bitUint(0x0314,(uint)goldNumeric.Value);
+            saveData.save16bitUint(0x021C,(uint)goldNumeric.Value);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace LODEdit
         private void okButton_Click(object sender, EventArgs e)
         {
             //Update save data
-            updateData(currentSaveSlot);
+            updateData();
 
             //Edited data should be return after pressing OK button
             confirmedFlag = true;
