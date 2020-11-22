@@ -22,6 +22,9 @@ namespace LODEdit
 
         public byte[] initDialog(string windowTitle, byte[] gameSaveData)
         {
+            #if DEBUG
+                System.Diagnostics.Debugger.Launch();
+            #endif
             this.Text = windowTitle;
             this.saveData = new SaveData(gameSaveData, currentSaveSlot);
             loadData();
