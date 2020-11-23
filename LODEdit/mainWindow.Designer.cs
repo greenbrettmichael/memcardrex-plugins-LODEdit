@@ -64,6 +64,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.character = new System.Windows.Forms.ComboBox();
+            this.dragoonSpirits = new System.Windows.Forms.CheckedListBox();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.goldNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeMinutes)).BeginInit();
@@ -522,11 +524,40 @@
             this.character.TabIndex = 142;
             this.character.SelectedIndexChanged += new System.EventHandler(this.character_SelectedIndexChanged);
             // 
+            // dragoonSpirits
+            // 
+            this.dragoonSpirits.FormattingEnabled = true;
+            this.dragoonSpirits.Items.AddRange(new object[] {
+            "Red_Eyed",
+            "Blue_Sea",
+            "Jade",
+            "Golden",
+            "Violet",
+            "Silver",
+            "Darkness",
+            "Divine"});
+            this.dragoonSpirits.Location = new System.Drawing.Point(15, 158);
+            this.dragoonSpirits.Name = "dragoonSpirits";
+            this.dragoonSpirits.Size = new System.Drawing.Size(120, 94);
+            this.dragoonSpirits.TabIndex = 143;
+            this.dragoonSpirits.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.dragoonSpirits_ItemCheck);
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(12, 142);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(68, 13);
+            this.label16.TabIndex = 144;
+            this.label16.Text = "Dragoons:";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(848, 433);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.dragoonSpirits);
             this.Controls.Add(this.character);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.hits);
@@ -626,5 +657,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox character;
+        private System.Windows.Forms.CheckedListBox dragoonSpirits;
+        private System.Windows.Forms.Label label16;
     }
 }

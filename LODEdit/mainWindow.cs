@@ -16,6 +16,7 @@ namespace LODEdit
         Gold saveGold = null;
         TimePlayed saveTime = null;
         Party saveParty = null;
+        DragoonStats dragoonStats = null;
         List<CharacterStats> saveCharacters = new List<CharacterStats>();
         CharacterID selectedCharacter = CharacterID.Dart;
         int selectedAddition = 0;
@@ -35,6 +36,7 @@ namespace LODEdit
             this.saveGold = new Gold(saveData);
             this.saveTime = new TimePlayed(saveData);
             this.saveParty = new Party(saveData);
+            this.dragoonStats = new DragoonStats(saveData);
             foreach (CharacterID characterID in Enum.GetValues(typeof(CharacterID)))
             {
                 if(characterID == CharacterID.None)
@@ -142,6 +144,12 @@ namespace LODEdit
             loadCharacterStats();
             character.SelectedIndex = (int)selectedCharacter;
             addition.SelectedIndex = selectedAddition;
+
+            int dsIter = 0;
+            foreach(DragoonSpirit ds in Enum.GetValues(typeof(DragoonSpirit)))
+            {
+                dragoonSpirits.SetItemChecked(dsIter++, dragoonStats.hasDragoonSpirit(ds));
+            }
         }
 
         private void updateData()
@@ -164,6 +172,8 @@ namespace LODEdit
             {
                 saveCharacter.updateData();
             }
+
+            dragoonStats.updateData();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -196,6 +206,19 @@ namespace LODEdit
             updateCharacterStats();
             selectedCharacter = (CharacterID)character.SelectedIndex;
             loadCharacterStats();
+        }
+
+        private void dragoonSpirits_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            DragoonSpirit checkedSpirit = dragoonStats.getFromIndex(e.Index);
+            if(e.NewValue == CheckState.Checked)
+            {
+                dragoonStats.addDragoonSpirit(checkedSpirit);
+            }
+            else
+            {
+                dragoonStats.removeDragoonSpirit(checkedSpirit);
+            }
         }
     }
 }
