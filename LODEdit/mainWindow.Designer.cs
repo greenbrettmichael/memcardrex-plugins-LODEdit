@@ -66,6 +66,16 @@
             this.character = new System.Windows.Forms.ComboBox();
             this.dragoonSpirits = new System.Windows.Forms.CheckedListBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.armorCount = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
+            this.armorSlot = new System.Windows.Forms.NumericUpDown();
+            this.armorSlotItem = new System.Windows.Forms.ComboBox();
+            this.itemSlotItem = new System.Windows.Forms.ComboBox();
+            this.itemSlot = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.itemCount = new System.Windows.Forms.NumericUpDown();
+            this.label20 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.goldNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeMinutes)).BeginInit();
@@ -79,6 +89,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dlvl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.exp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armorCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armorSlot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemSlot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemCount)).BeginInit();
             this.SuspendLayout();
             // 
             // okButton
@@ -551,11 +565,169 @@
             this.label16.Text = "Dragoons:";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label17
+            // 
+            this.label17.Location = new System.Drawing.Point(241, 239);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(68, 13);
+            this.label17.TabIndex = 145;
+            this.label17.Text = "Armor Count:";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // armorCount
+            // 
+            this.armorCount.Location = new System.Drawing.Point(315, 237);
+            this.armorCount.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.armorCount.Name = "armorCount";
+            this.armorCount.Size = new System.Drawing.Size(36, 20);
+            this.armorCount.TabIndex = 146;
+            this.armorCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(365, 239);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(68, 13);
+            this.label18.TabIndex = 147;
+            this.label18.Text = "Armor Slot:";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // armorSlot
+            // 
+            this.armorSlot.Location = new System.Drawing.Point(439, 237);
+            this.armorSlot.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.armorSlot.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.armorSlot.Name = "armorSlot";
+            this.armorSlot.Size = new System.Drawing.Size(36, 20);
+            this.armorSlot.TabIndex = 148;
+            this.armorSlot.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.armorSlot.ValueChanged += new System.EventHandler(this.armorSlot_ValueChanged);
+            // 
+            // armorSlotItem
+            // 
+            this.armorSlotItem.FormattingEnabled = true;
+            this.armorSlotItem.Items.AddRange(new object[] {
+            "Double Slash",
+            "Volcano",
+            "Burning Rush",
+            "Crush Dance",
+            "Madness Hero",
+            "Moon Strike",
+            "Blazing Dynamo"});
+            this.armorSlotItem.Location = new System.Drawing.Point(481, 236);
+            this.armorSlotItem.Name = "armorSlotItem";
+            this.armorSlotItem.Size = new System.Drawing.Size(103, 21);
+            this.armorSlotItem.TabIndex = 149;
+            // 
+            // itemSlotItem
+            // 
+            this.itemSlotItem.FormattingEnabled = true;
+            this.itemSlotItem.Items.AddRange(new object[] {
+            "Double Slash",
+            "Volcano",
+            "Burning Rush",
+            "Crush Dance",
+            "Madness Hero",
+            "Moon Strike",
+            "Blazing Dynamo"});
+            this.itemSlotItem.Location = new System.Drawing.Point(481, 263);
+            this.itemSlotItem.Name = "itemSlotItem";
+            this.itemSlotItem.Size = new System.Drawing.Size(103, 21);
+            this.itemSlotItem.TabIndex = 154;
+            // 
+            // itemSlot
+            // 
+            this.itemSlot.Location = new System.Drawing.Point(439, 264);
+            this.itemSlot.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.itemSlot.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.itemSlot.Name = "itemSlot";
+            this.itemSlot.Size = new System.Drawing.Size(36, 20);
+            this.itemSlot.TabIndex = 153;
+            this.itemSlot.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.itemSlot.ValueChanged += new System.EventHandler(this.itemSlot_ValueChanged);
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(365, 266);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(68, 13);
+            this.label19.TabIndex = 152;
+            this.label19.Text = "Item Slot:";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // itemCount
+            // 
+            this.itemCount.Location = new System.Drawing.Point(315, 264);
+            this.itemCount.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.itemCount.Name = "itemCount";
+            this.itemCount.Size = new System.Drawing.Size(36, 20);
+            this.itemCount.TabIndex = 151;
+            this.itemCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label20
+            // 
+            this.label20.Location = new System.Drawing.Point(241, 266);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(68, 13);
+            this.label20.TabIndex = 150;
+            this.label20.Text = "Item Count:";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(848, 433);
+            this.Controls.Add(this.itemSlotItem);
+            this.Controls.Add(this.itemSlot);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.itemCount);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.armorSlotItem);
+            this.Controls.Add(this.armorSlot);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.armorCount);
+            this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.dragoonSpirits);
             this.Controls.Add(this.character);
@@ -615,6 +787,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dlvl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.exp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armorCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armorSlot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemSlot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -659,5 +835,15 @@
         private System.Windows.Forms.ComboBox character;
         private System.Windows.Forms.CheckedListBox dragoonSpirits;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.NumericUpDown armorCount;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown armorSlot;
+        private System.Windows.Forms.ComboBox armorSlotItem;
+        private System.Windows.Forms.ComboBox itemSlotItem;
+        private System.Windows.Forms.NumericUpDown itemSlot;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.NumericUpDown itemCount;
+        private System.Windows.Forms.Label label20;
     }
 }

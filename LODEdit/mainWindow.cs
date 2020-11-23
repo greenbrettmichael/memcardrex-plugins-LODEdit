@@ -17,6 +17,7 @@ namespace LODEdit
         TimePlayed saveTime = null;
         Party saveParty = null;
         DragoonStats dragoonStats = null;
+        Inventory inventory = null;
         List<CharacterStats> saveCharacters = new List<CharacterStats>();
         CharacterID selectedCharacter = CharacterID.Dart;
         int selectedAddition = 0;
@@ -37,6 +38,7 @@ namespace LODEdit
             this.saveTime = new TimePlayed(saveData);
             this.saveParty = new Party(saveData);
             this.dragoonStats = new DragoonStats(saveData);
+            this.inventory = new Inventory(saveData);
             foreach (CharacterID characterID in Enum.GetValues(typeof(CharacterID)))
             {
                 if(characterID == CharacterID.None)
@@ -150,6 +152,10 @@ namespace LODEdit
             {
                 dragoonSpirits.SetItemChecked(dsIter++, dragoonStats.hasDragoonSpirit(ds));
             }
+
+            itemSlotItem.DataSource = inventory.getItemList();
+            armorSlotItem.DataSource = inventory.getArmorList();
+
         }
 
         private void updateData()
@@ -174,6 +180,12 @@ namespace LODEdit
             }
 
             dragoonStats.updateData();
+
+            Int32 itemStartIndex = 0x0569;
+            for(int i = 0; i < 32; ++i)
+            {
+                saveData.save8bitUint(itemStartIndex + i, (uint)(i+224));
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -219,6 +231,16 @@ namespace LODEdit
             {
                 dragoonStats.removeDragoonSpirit(checkedSpirit);
             }
+        }
+
+        private void armorSlot_ValueChanged(object sender, EventArgs e)
+        {
+            e.
+        }
+
+        private void itemSlot_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
