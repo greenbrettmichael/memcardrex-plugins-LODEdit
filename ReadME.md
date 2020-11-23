@@ -21,3 +21,4 @@ If you are using memcardrex to change an emulator save, the emulator should not 
 8. Story Events
 9. Statuses
 10. Create "Basic" menu with shortcuts to high demand changes
+11. Key Items
