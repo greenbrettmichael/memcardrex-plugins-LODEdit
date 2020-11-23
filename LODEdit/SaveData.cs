@@ -39,6 +39,11 @@ namespace LODEdit
             return load24bitInt(index) | saveData[index + saveSlotOffset + 3] << 24;
         }
 
+        public uint load8bitUint(Int32 index)
+        {
+            return (uint)load8bitInt(index);
+        }
+
         public uint load16bitUint(Int32 index)
         {
             return (uint)load16bitInt(index);
@@ -55,9 +60,14 @@ namespace LODEdit
             saveData[index + saveSlotOffset + 1] = (byte)((value & 0xFF00) >> 8);
         }
 
-        public void save16bitUint(Int32 index, uint value)
+        public void save8bitUint(Int32 index, uint value)
         {
             saveData[index + saveSlotOffset] = (byte)(value & 0xFF);
+        }
+
+        public void save16bitUint(Int32 index, uint value)
+        {
+            save8bitUint(index, value);
             saveData[index + saveSlotOffset + 1] = (byte)((value & 0xFF00) >> 8);
         }
 

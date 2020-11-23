@@ -45,6 +45,7 @@
       <DependentUpon>aboutWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="CharacterStats.cs" />
+    <Compile Include="DragoonStats.cs" />
     <Compile Include="Gold.cs" />
     <Compile Include="mainWindow.cs">
       <SubType>Form</SubType>
