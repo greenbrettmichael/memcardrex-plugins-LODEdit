@@ -107,6 +107,11 @@ namespace LODEdit
         private Int32 dexpOffset = 14;
         private Int32 lvlOffset = 18;
         private Int32 dlvlOffset = 19;
+        private Int32 weaponOffset = 20;
+        private Int32 helmetOffset = 21;
+        private Int32 chestOffset = 22;
+        private Int32 bootsOffset = 23;
+        private Int32 accessoryOffset = 24;
         private Int32 dartSaveInfoIndex = 0x0214;
         private Int32 dartSaveInfoDLvlOffset = 1;
         private Int32 dartSaveInfoHPOffset = 2;
@@ -119,6 +124,11 @@ namespace LODEdit
         public int hp;
         public int mp;
         public int sp;
+        public InventoryItem weapon;
+        public InventoryItem helmet;
+        public InventoryItem chest;
+        public InventoryItem boots;
+        public InventoryItem accessory;
 
         public int dartMaxHp;
 
@@ -155,6 +165,11 @@ namespace LODEdit
             dexp = saveData.load16bitInt(baseIndex + dexpOffset);
             lvl = saveData.load8bitInt(baseIndex + lvlOffset);
             dlvl = saveData.load8bitInt(baseIndex + dlvlOffset);
+            weapon = (InventoryItem)saveData.load8bitUint(baseIndex + weaponOffset);
+            helmet = (InventoryItem)saveData.load8bitUint(baseIndex + helmetOffset);
+            chest = (InventoryItem)saveData.load8bitUint(baseIndex + chestOffset);
+            boots = (InventoryItem)saveData.load8bitUint(baseIndex + bootsOffset);
+            accessory = (InventoryItem)saveData.load8bitUint(baseIndex + accessoryOffset);
             switch (characterID)
             {
                 case CharacterID.Dart:
@@ -197,6 +212,11 @@ namespace LODEdit
             saveData.save16bitInt(baseIndex + dexpOffset, dexp);
             saveData.save8bitInt(baseIndex + lvlOffset, lvl);
             saveData.save8bitInt(baseIndex + dlvlOffset, dlvl);
+            saveData.save8bitUint(baseIndex + weaponOffset, (uint)weapon);
+            saveData.save8bitUint(baseIndex + helmetOffset, (uint)helmet);
+            saveData.save8bitUint(baseIndex + chestOffset, (uint)chest);
+            saveData.save8bitUint(baseIndex + bootsOffset, (uint)boots);
+            saveData.save8bitUint(baseIndex + accessoryOffset, (uint)accessory);
             foreach (Addition addition in additions)
             {
                 saveData.save8bitInt(addition.index, addition.hits);

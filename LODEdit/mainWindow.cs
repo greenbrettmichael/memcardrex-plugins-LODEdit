@@ -17,9 +17,12 @@ namespace LODEdit
         TimePlayed saveTime = null;
         Party saveParty = null;
         DragoonStats dragoonStats = null;
+        Inventory inventory = null;
         List<CharacterStats> saveCharacters = new List<CharacterStats>();
         CharacterID selectedCharacter = CharacterID.Dart;
         int selectedAddition = 0;
+        int selectedArmorItem = 0;
+        int selectedUsedItem = 0;
 
         public mainWindow()
         {
@@ -37,6 +40,14 @@ namespace LODEdit
             this.saveTime = new TimePlayed(saveData);
             this.saveParty = new Party(saveData);
             this.dragoonStats = new DragoonStats(saveData);
+            this.inventory = new Inventory(saveData);
+            itemSlotItem.DataSource = inventory.getItemList();
+            armorSlotItem.DataSource = inventory.getArmorList();
+            weapon.DataSource = inventory.getArmorList();
+            helmet.DataSource = inventory.getArmorList();
+            chest.DataSource = inventory.getArmorList();
+            boots.DataSource = inventory.getArmorList();
+            accessory.DataSource = inventory.getArmorList();
             foreach (CharacterID characterID in Enum.GetValues(typeof(CharacterID)))
             {
                 if(characterID == CharacterID.None)
@@ -87,6 +98,11 @@ namespace LODEdit
                 dartMaxHP.Value = 0;
                 dartMaxHP.Enabled = false;
             }
+            weapon.SelectedItem = saveCharacter.weapon;
+            helmet.SelectedItem = saveCharacter.helmet;
+            chest.SelectedItem = saveCharacter.chest;
+            boots.SelectedItem = saveCharacter.boots;
+            accessory.SelectedItem = saveCharacter.accessory;
 
             addition.Items.Clear();
             selectedAddition = 0;
@@ -111,6 +127,28 @@ namespace LODEdit
             }
         }
 
+        private void loadArmorItem()
+        {
+            selectedArmorItem = (int)armorSlot.Value - 1;
+            armorSlotItem.SelectedItem = inventory.armors[selectedArmorItem];
+        }
+
+        private void loadUsedItem()
+        {
+            selectedUsedItem = (int)itemSlot.Value - 1;
+            itemSlotItem.SelectedItem = inventory.usedItems[selectedUsedItem];
+        }
+
+        private void updateArmorItem()
+        {
+            inventory.armors[selectedArmorItem] = (InventoryItem)armorSlotItem.SelectedItem;
+        }
+
+        private void updateUsedItem()
+        {
+            inventory.usedItems[selectedUsedItem] = (InventoryItem)itemSlotItem.SelectedItem;
+        }
+
         private void updateCharacterStats()
         {
             CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
@@ -121,7 +159,12 @@ namespace LODEdit
             saveCharacter.hp = (int)clampNumeric(hp);
             saveCharacter.mp = (int)clampNumeric(mp);
             saveCharacter.sp = (int)clampNumeric(sp);
-            if(selectedCharacter == CharacterID.Dart)
+            saveCharacter.weapon = (InventoryItem)(weapon.SelectedItem ?? saveCharacter.weapon);
+            saveCharacter.helmet = (InventoryItem)(helmet.SelectedItem ?? saveCharacter.helmet);
+            saveCharacter.chest = (InventoryItem)(chest.SelectedItem ?? saveCharacter.chest);
+            saveCharacter.boots = (InventoryItem)(boots.SelectedItem ?? saveCharacter.boots);
+            saveCharacter.accessory = (InventoryItem)(accessory.SelectedItem ?? saveCharacter.accessory);
+            if (selectedCharacter == CharacterID.Dart)
             {
                 saveCharacter.dartMaxHp = (int)clampNumeric(dartMaxHP);
             }
@@ -150,6 +193,11 @@ namespace LODEdit
             {
                 dragoonSpirits.SetItemChecked(dsIter++, dragoonStats.hasDragoonSpirit(ds));
             }
+
+            loadArmorItem();
+            loadUsedItem();
+            armorCount.Value = inventory.armorCount;
+            itemCount.Value = inventory.itemCount;
         }
 
         private void updateData()
@@ -174,6 +222,12 @@ namespace LODEdit
             }
 
             dragoonStats.updateData();
+
+            updateArmorItem();
+            updateUsedItem();
+            inventory.armorCount = (uint)clampNumeric(armorCount);
+            inventory.itemCount = (uint)clampNumeric(itemCount);
+            inventory.updateData();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -219,6 +273,18 @@ namespace LODEdit
             {
                 dragoonStats.removeDragoonSpirit(checkedSpirit);
             }
+        }
+
+        private void armorSlot_ValueChanged(object sender, EventArgs e)
+        {
+            updateArmorItem();
+            loadArmorItem();
+        }
+
+        private void itemSlot_ValueChanged(object sender, EventArgs e)
+        {
+            updateUsedItem();
+            loadUsedItem();
         }
     }
 }
