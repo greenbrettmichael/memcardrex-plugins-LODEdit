@@ -41,6 +41,13 @@ namespace LODEdit
             this.saveParty = new Party(saveData);
             this.dragoonStats = new DragoonStats(saveData);
             this.inventory = new Inventory(saveData);
+            itemSlotItem.DataSource = inventory.getItemList();
+            armorSlotItem.DataSource = inventory.getArmorList();
+            weapon.DataSource = inventory.getArmorList();
+            helmet.DataSource = inventory.getArmorList();
+            chest.DataSource = inventory.getArmorList();
+            boots.DataSource = inventory.getArmorList();
+            accessory.DataSource = inventory.getArmorList();
             foreach (CharacterID characterID in Enum.GetValues(typeof(CharacterID)))
             {
                 if(characterID == CharacterID.None)
@@ -91,6 +98,11 @@ namespace LODEdit
                 dartMaxHP.Value = 0;
                 dartMaxHP.Enabled = false;
             }
+            weapon.SelectedItem = saveCharacter.weapon;
+            helmet.SelectedItem = saveCharacter.helmet;
+            chest.SelectedItem = saveCharacter.chest;
+            boots.SelectedItem = saveCharacter.boots;
+            accessory.SelectedItem = saveCharacter.accessory;
 
             addition.Items.Clear();
             selectedAddition = 0;
@@ -147,7 +159,12 @@ namespace LODEdit
             saveCharacter.hp = (int)clampNumeric(hp);
             saveCharacter.mp = (int)clampNumeric(mp);
             saveCharacter.sp = (int)clampNumeric(sp);
-            if(selectedCharacter == CharacterID.Dart)
+            saveCharacter.weapon = (InventoryItem)(weapon.SelectedItem ?? saveCharacter.weapon);
+            saveCharacter.helmet = (InventoryItem)(helmet.SelectedItem ?? saveCharacter.helmet);
+            saveCharacter.chest = (InventoryItem)(chest.SelectedItem ?? saveCharacter.chest);
+            saveCharacter.boots = (InventoryItem)(boots.SelectedItem ?? saveCharacter.boots);
+            saveCharacter.accessory = (InventoryItem)(accessory.SelectedItem ?? saveCharacter.accessory);
+            if (selectedCharacter == CharacterID.Dart)
             {
                 saveCharacter.dartMaxHp = (int)clampNumeric(dartMaxHP);
             }
@@ -177,8 +194,6 @@ namespace LODEdit
                 dragoonSpirits.SetItemChecked(dsIter++, dragoonStats.hasDragoonSpirit(ds));
             }
 
-            itemSlotItem.DataSource = inventory.getItemList();
-            armorSlotItem.DataSource = inventory.getArmorList();
             loadArmorItem();
             loadUsedItem();
             armorCount.Value = inventory.armorCount;
