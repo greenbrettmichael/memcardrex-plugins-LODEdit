@@ -21,6 +21,8 @@ namespace LODEdit
         List<CharacterStats> saveCharacters = new List<CharacterStats>();
         CharacterID selectedCharacter = CharacterID.Dart;
         int selectedAddition = 0;
+        int selectedArmorItem = 0;
+        int selectedUsedItem = 0;
 
         public mainWindow()
         {
@@ -113,6 +115,28 @@ namespace LODEdit
             }
         }
 
+        private void loadArmorItem()
+        {
+            selectedArmorItem = (int)armorSlot.Value - 1;
+            armorSlotItem.SelectedItem = inventory.armors[selectedArmorItem];
+        }
+
+        private void loadUsedItem()
+        {
+            selectedUsedItem = (int)itemSlot.Value - 1;
+            itemSlotItem.SelectedItem = inventory.usedItems[selectedUsedItem];
+        }
+
+        private void updateArmorItem()
+        {
+            inventory.armors[selectedArmorItem] = (InventoryItem)armorSlotItem.SelectedItem;
+        }
+
+        private void updateUsedItem()
+        {
+            inventory.usedItems[selectedUsedItem] = (InventoryItem)itemSlotItem.SelectedItem;
+        }
+
         private void updateCharacterStats()
         {
             CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
@@ -155,7 +179,10 @@ namespace LODEdit
 
             itemSlotItem.DataSource = inventory.getItemList();
             armorSlotItem.DataSource = inventory.getArmorList();
-
+            loadArmorItem();
+            loadUsedItem();
+            armorCount.Value = inventory.armorCount;
+            itemCount.Value = inventory.itemCount;
         }
 
         private void updateData()
@@ -181,11 +208,11 @@ namespace LODEdit
 
             dragoonStats.updateData();
 
-            Int32 itemStartIndex = 0x0569;
-            for(int i = 0; i < 32; ++i)
-            {
-                saveData.save8bitUint(itemStartIndex + i, (uint)(i+224));
-            }
+            updateArmorItem();
+            updateUsedItem();
+            inventory.armorCount = (uint)clampNumeric(armorCount);
+            inventory.itemCount = (uint)clampNumeric(itemCount);
+            inventory.updateData();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -235,12 +262,14 @@ namespace LODEdit
 
         private void armorSlot_ValueChanged(object sender, EventArgs e)
         {
-            e.
+            updateArmorItem();
+            loadArmorItem();
         }
 
         private void itemSlot_ValueChanged(object sender, EventArgs e)
         {
-
+            updateUsedItem();
+            loadUsedItem();
         }
     }
 }
