@@ -303,6 +303,7 @@ namespace LODEdit
             inventory.itemCount = (uint)clampNumeric(itemCount);
             inventory.updateData();
 
+            updateKeyItems();
             keyItems.updateData();
         }
 

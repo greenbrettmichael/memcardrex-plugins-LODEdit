@@ -6,86 +6,86 @@ namespace LODEdit
 {
     public enum Goods2
     {
-        Red_Eyed = 1,
-        Blue_Sea = 2,
-        Jade = 4,
-        Golden = 8,
-        Violet = 16,
-        Silver = 32,
-        Darkness = 64,
-        Divine = 128
+        War_Bulletin = 1,
+        Fathers_Stone = 2,
+        Prison_Key = 4,
+        Axe_From_The_Shack = 8,
+        Good_Spirits = 16,
+        Shiny_Bag = 32,
+        Water_Bottle = 64,
+        Life_Water = 128
     }
 
     public enum Goods3
     {
-        Red_Eyed = 1,
-        Blue_Sea = 2,
-        Jade = 4,
-        Golden = 8,
-        Violet = 16,
-        Silver = 32,
-        Darkness = 64,
-        Divine = 128
+        Magic_Oil = 1,
+        Yellow_Stone = 2,
+        Blue_Stone = 4,
+        Red_Stone = 8,
+        Letter_From_Lynn = 16,
+        Pass_For_Valley = 32,
+        Kates_Bouquet = 64,
+        Key_To_Ship = 128
     }
 
     public enum Goods4
     {
-        Red_Eyed = 1,
-        Blue_Sea = 2,
-        Jade = 4,
-        Golden = 8,
-        Violet = 16,
-        Silver = 32,
-        Darkness = 64,
-        Divine = 128
+        Boat_License = 1,
+        Dragon_Blocker = 2,
+        Moon_Gem = 4,
+        Moon_Dagger = 8,
+        Moon_Mirror = 16,
+        Omega_Bomb = 32,
+        Omega_Master = 64,
+        Law_Maker = 128
     }
 
     public enum Goods5
     {
-        Red_Eyed = 1,
-        Blue_Sea = 2,
-        Jade = 4,
-        Golden = 8,
-        Violet = 16,
-        Silver = 32,
-        Darkness = 64,
-        Divine = 128
+        Law_Output = 1,
+        Gold_Dragon_DS = 2,
+        Magic_Shiny_Bag = 4,
+        Vanishing_Stone = 8,
+        Lavitzs_Picture = 16,
+        Temporary37 = 32,
+        Temporary38 = 64,
+        Temporary39 = 128
     }
 
     public enum Goods6
     {
-        Red_Eyed = 1,
-        Blue_Sea = 2,
-        Jade = 4,
-        Golden = 8,
-        Violet = 16,
-        Silver = 32,
-        Darkness = 64,
-        Divine = 128
+        Temporary40 = 1,
+        Temporary41 = 2,
+        Temporary42 = 4,
+        Temporary43 = 8,
+        Temporary44 = 16,
+        Temporary45 = 32,
+        Temporary46 = 64,
+        Temporary47 = 128
     }
 
     public enum Goods7
     {
-        Red_Eyed = 1,
-        Blue_Sea = 2,
-        Jade = 4,
-        Golden = 8,
-        Violet = 16,
-        Silver = 32,
-        Darkness = 64,
-        Divine = 128
+        Temporary48 = 1,
+        Temporary49 = 2,
+        Temporary50 = 4,
+        Temporary51 = 8,
+        Temporary52 = 16,
+        Temporary53 = 32,
+        Temporary54 = 64,
+        Temporary55 = 128
     }
 
     public enum Goods8
     {
-        Red_Eyed = 1,
-        Blue_Sea = 2,
-        Jade = 4,
-        Golden = 8,
-        Violet = 16,
-        Silver = 32,
-        Darkness = 64,
-        Divine = 128
+        Temporary56 = 1,
+        Temporary57 = 2,
+        Temporary58 = 4,
+        Temporary59 = 8,
+        Temporary60 = 16,
+        Temporary61 = 32,
+        Temporary62 = 64,
+        Temporary63 = 128
     }
 
     class Goods
@@ -259,12 +259,12 @@ namespace LODEdit
         public void updateData()
         {
             saveData.save8bitUint(gameIndex, goods2);
-            saveData.save8bitUint(gameIndex, goods3);
-            saveData.save8bitUint(gameIndex, goods4);
-            saveData.save8bitUint(gameIndex, goods5);
-            saveData.save8bitUint(gameIndex, goods6);
-            saveData.save8bitUint(gameIndex, goods7);
-            saveData.save8bitUint(gameIndex, goods8);
+            saveData.save8bitUint(gameIndex + 1, goods3);
+            saveData.save8bitUint(gameIndex + 2, goods4);
+            saveData.save8bitUint(gameIndex + 3, goods5);
+            saveData.save8bitUint(gameIndex + 4, goods6);
+            saveData.save8bitUint(gameIndex + 5, goods7);
+            saveData.save8bitUint(gameIndex + 6, goods8);
         }
     }
 }
