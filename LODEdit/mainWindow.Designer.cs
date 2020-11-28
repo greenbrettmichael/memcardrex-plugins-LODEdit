@@ -86,6 +86,9 @@
             this.label24 = new System.Windows.Forms.Label();
             this.accessory = new System.Windows.Forms.ComboBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.goods = new System.Windows.Forms.CheckedListBox();
+            this.goodSlot = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.goldNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeMinutes)).BeginInit();
@@ -103,14 +106,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.armorSlot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemSlot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.goodSlot)).BeginInit();
             this.SuspendLayout();
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(10, 712);
-            this.okButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.okButton.Location = new System.Drawing.Point(5, 370);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(150, 44);
+            this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 99;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
@@ -118,10 +121,9 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(172, 712);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cancelButton.Location = new System.Drawing.Point(86, 370);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(150, 44);
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 0;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -129,102 +131,93 @@
             // 
             // goldNumeric
             // 
-            this.goldNumeric.Location = new System.Drawing.Point(176, 13);
-            this.goldNumeric.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.goldNumeric.Location = new System.Drawing.Point(88, 7);
             this.goldNumeric.Maximum = new decimal(new int[] {
             65535,
             0,
             0,
             0});
             this.goldNumeric.Name = "goldNumeric";
-            this.goldNumeric.Size = new System.Drawing.Size(236, 31);
+            this.goldNumeric.Size = new System.Drawing.Size(118, 20);
             this.goldNumeric.TabIndex = 9;
             // 
             // goldLabel
             // 
-            this.goldLabel.Location = new System.Drawing.Point(24, 17);
-            this.goldLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.goldLabel.Location = new System.Drawing.Point(12, 9);
             this.goldLabel.Name = "goldLabel";
-            this.goldLabel.Size = new System.Drawing.Size(136, 25);
+            this.goldLabel.Size = new System.Drawing.Size(68, 13);
             this.goldLabel.TabIndex = 13;
             this.goldLabel.Text = "Gold:";
             this.goldLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(24, 77);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(12, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 25);
+            this.label1.Size = new System.Drawing.Size(68, 13);
             this.label1.TabIndex = 100;
             this.label1.Text = "Time:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // timeHours
             // 
-            this.timeHours.Location = new System.Drawing.Point(172, 63);
-            this.timeHours.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.timeHours.Location = new System.Drawing.Point(86, 33);
             this.timeHours.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
             this.timeHours.Name = "timeHours";
-            this.timeHours.Size = new System.Drawing.Size(72, 31);
+            this.timeHours.Size = new System.Drawing.Size(36, 20);
             this.timeHours.TabIndex = 101;
             // 
             // timeMinutes
             // 
-            this.timeMinutes.Location = new System.Drawing.Point(256, 63);
-            this.timeMinutes.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.timeMinutes.Location = new System.Drawing.Point(128, 33);
             this.timeMinutes.Maximum = new decimal(new int[] {
             60,
             0,
             0,
             0});
             this.timeMinutes.Name = "timeMinutes";
-            this.timeMinutes.Size = new System.Drawing.Size(72, 31);
+            this.timeMinutes.Size = new System.Drawing.Size(36, 20);
             this.timeMinutes.TabIndex = 102;
             // 
             // timeSeconds
             // 
-            this.timeSeconds.Location = new System.Drawing.Point(340, 63);
-            this.timeSeconds.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.timeSeconds.Location = new System.Drawing.Point(170, 33);
             this.timeSeconds.Maximum = new decimal(new int[] {
             60,
             0,
             0,
             0});
             this.timeSeconds.Name = "timeSeconds";
-            this.timeSeconds.Size = new System.Drawing.Size(72, 31);
+            this.timeSeconds.Size = new System.Drawing.Size(36, 20);
             this.timeSeconds.TabIndex = 103;
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(24, 121);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Location = new System.Drawing.Point(12, 63);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(136, 25);
+            this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 104;
             this.label2.Text = "Party 1:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(166, 121);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label3.Location = new System.Drawing.Point(83, 63);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(136, 25);
+            this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 105;
             this.label3.Text = "Party 2:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(314, 121);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label4.Location = new System.Drawing.Point(157, 63);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(136, 25);
+            this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 106;
             this.label4.Text = "Party 3:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -232,7 +225,6 @@
             // party1
             // 
             this.party1.FormattingEnabled = true;
-            this.party1.ItemHeight = 25;
             this.party1.Items.AddRange(new object[] {
             "None",
             "Dart",
@@ -244,16 +236,14 @@
             "Meru",
             "Kongol",
             "Miranda"});
-            this.party1.Location = new System.Drawing.Point(30, 152);
-            this.party1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.party1.Location = new System.Drawing.Point(15, 79);
             this.party1.Name = "party1";
-            this.party1.Size = new System.Drawing.Size(126, 104);
+            this.party1.Size = new System.Drawing.Size(65, 56);
             this.party1.TabIndex = 107;
             // 
             // party2
             // 
             this.party2.FormattingEnabled = true;
-            this.party2.ItemHeight = 25;
             this.party2.Items.AddRange(new object[] {
             "None",
             "Dart",
@@ -265,16 +255,14 @@
             "Meru",
             "Kongol",
             "Miranda"});
-            this.party2.Location = new System.Drawing.Point(172, 152);
-            this.party2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.party2.Location = new System.Drawing.Point(86, 79);
             this.party2.Name = "party2";
-            this.party2.Size = new System.Drawing.Size(126, 104);
+            this.party2.Size = new System.Drawing.Size(65, 56);
             this.party2.TabIndex = 108;
             // 
             // party3
             // 
             this.party3.FormattingEnabled = true;
-            this.party3.ItemHeight = 25;
             this.party3.Items.AddRange(new object[] {
             "None",
             "Dart",
@@ -286,23 +274,21 @@
             "Meru",
             "Kongol",
             "Miranda"});
-            this.party3.Location = new System.Drawing.Point(314, 152);
-            this.party3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.party3.Location = new System.Drawing.Point(157, 79);
             this.party3.Name = "party3";
-            this.party3.Size = new System.Drawing.Size(126, 104);
+            this.party3.Size = new System.Drawing.Size(65, 56);
             this.party3.TabIndex = 109;
             // 
             // hits
             // 
-            this.hits.Location = new System.Drawing.Point(1024, 267);
-            this.hits.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.hits.Location = new System.Drawing.Point(512, 139);
             this.hits.Maximum = new decimal(new int[] {
             99,
             0,
             0,
             0});
             this.hits.Name = "hits";
-            this.hits.Size = new System.Drawing.Size(144, 31);
+            this.hits.Size = new System.Drawing.Size(72, 20);
             this.hits.TabIndex = 140;
             this.hits.Value = new decimal(new int[] {
             1,
@@ -312,10 +298,9 @@
             // 
             // label14
             // 
-            this.label14.Location = new System.Drawing.Point(876, 273);
-            this.label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label14.Location = new System.Drawing.Point(438, 142);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(136, 25);
+            this.label14.Size = new System.Drawing.Size(68, 13);
             this.label14.TabIndex = 139;
             this.label14.Text = "Hits:";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -331,34 +316,31 @@
             "Madness Hero",
             "Moon Strike",
             "Blazing Dynamo"});
-            this.addition.Location = new System.Drawing.Point(624, 267);
-            this.addition.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.addition.Location = new System.Drawing.Point(312, 139);
             this.addition.Name = "addition";
-            this.addition.Size = new System.Drawing.Size(238, 33);
+            this.addition.Size = new System.Drawing.Size(121, 21);
             this.addition.TabIndex = 138;
             this.addition.SelectedIndexChanged += new System.EventHandler(this.addition_SelectedIndexChanged);
             // 
             // label13
             // 
-            this.label13.Location = new System.Drawing.Point(482, 273);
-            this.label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label13.Location = new System.Drawing.Point(241, 142);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(136, 25);
+            this.label13.Size = new System.Drawing.Size(68, 13);
             this.label13.TabIndex = 137;
             this.label13.Text = "Addition:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // sp
             // 
-            this.sp.Location = new System.Drawing.Point(1024, 210);
-            this.sp.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.sp.Location = new System.Drawing.Point(512, 109);
             this.sp.Maximum = new decimal(new int[] {
             500,
             0,
             0,
             0});
             this.sp.Name = "sp";
-            this.sp.Size = new System.Drawing.Size(144, 31);
+            this.sp.Size = new System.Drawing.Size(72, 20);
             this.sp.TabIndex = 136;
             this.sp.Value = new decimal(new int[] {
             1,
@@ -368,20 +350,18 @@
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(876, 213);
-            this.label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label12.Location = new System.Drawing.Point(438, 111);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(136, 25);
+            this.label12.Size = new System.Drawing.Size(68, 13);
             this.label12.TabIndex = 135;
             this.label12.Text = "SP:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // mp
             // 
-            this.mp.Location = new System.Drawing.Point(1024, 165);
-            this.mp.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mp.Location = new System.Drawing.Point(512, 86);
             this.mp.Name = "mp";
-            this.mp.Size = new System.Drawing.Size(144, 31);
+            this.mp.Size = new System.Drawing.Size(72, 20);
             this.mp.TabIndex = 134;
             this.mp.Value = new decimal(new int[] {
             1,
@@ -391,25 +371,23 @@
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(876, 169);
-            this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label11.Location = new System.Drawing.Point(438, 88);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(136, 25);
+            this.label11.Size = new System.Drawing.Size(68, 13);
             this.label11.TabIndex = 133;
             this.label11.Text = "MP:";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dartMaxHP
             // 
-            this.dartMaxHP.Location = new System.Drawing.Point(1024, 117);
-            this.dartMaxHP.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dartMaxHP.Location = new System.Drawing.Point(512, 61);
             this.dartMaxHP.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
             this.dartMaxHP.Name = "dartMaxHP";
-            this.dartMaxHP.Size = new System.Drawing.Size(144, 31);
+            this.dartMaxHP.Size = new System.Drawing.Size(72, 20);
             this.dartMaxHP.TabIndex = 132;
             this.dartMaxHP.Value = new decimal(new int[] {
             1,
@@ -419,25 +397,23 @@
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(878, 117);
-            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label10.Location = new System.Drawing.Point(439, 61);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(134, 29);
+            this.label10.Size = new System.Drawing.Size(67, 15);
             this.label10.TabIndex = 131;
             this.label10.Text = "Max HP:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // hp
             // 
-            this.hp.Location = new System.Drawing.Point(1024, 71);
-            this.hp.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.hp.Location = new System.Drawing.Point(512, 37);
             this.hp.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
             this.hp.Name = "hp";
-            this.hp.Size = new System.Drawing.Size(144, 31);
+            this.hp.Size = new System.Drawing.Size(72, 20);
             this.hp.TabIndex = 130;
             this.hp.Value = new decimal(new int[] {
             1,
@@ -447,87 +423,79 @@
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(876, 77);
-            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label9.Location = new System.Drawing.Point(438, 40);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(136, 25);
+            this.label9.Size = new System.Drawing.Size(68, 13);
             this.label9.TabIndex = 129;
             this.label9.Text = "HP:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dexp
             // 
-            this.dexp.Location = new System.Drawing.Point(630, 210);
-            this.dexp.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dexp.Location = new System.Drawing.Point(315, 109);
             this.dexp.Maximum = new decimal(new int[] {
             32000,
             0,
             0,
             0});
             this.dexp.Name = "dexp";
-            this.dexp.Size = new System.Drawing.Size(236, 31);
+            this.dexp.Size = new System.Drawing.Size(118, 20);
             this.dexp.TabIndex = 128;
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(482, 213);
-            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label8.Location = new System.Drawing.Point(241, 111);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(136, 25);
+            this.label8.Size = new System.Drawing.Size(68, 13);
             this.label8.TabIndex = 127;
             this.label8.Text = "D Exp:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dlvl
             // 
-            this.dlvl.Location = new System.Drawing.Point(630, 165);
-            this.dlvl.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dlvl.Location = new System.Drawing.Point(315, 86);
             this.dlvl.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
             this.dlvl.Name = "dlvl";
-            this.dlvl.Size = new System.Drawing.Size(72, 31);
+            this.dlvl.Size = new System.Drawing.Size(36, 20);
             this.dlvl.TabIndex = 126;
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(482, 169);
-            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label7.Location = new System.Drawing.Point(241, 88);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(136, 25);
+            this.label7.Size = new System.Drawing.Size(68, 13);
             this.label7.TabIndex = 125;
             this.label7.Text = "D Lv:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // exp
             // 
-            this.exp.Location = new System.Drawing.Point(630, 117);
-            this.exp.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.exp.Location = new System.Drawing.Point(315, 61);
             this.exp.Maximum = new decimal(new int[] {
             2147483647,
             0,
             0,
             0});
             this.exp.Name = "exp";
-            this.exp.Size = new System.Drawing.Size(236, 31);
+            this.exp.Size = new System.Drawing.Size(118, 20);
             this.exp.TabIndex = 124;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(482, 121);
-            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label6.Location = new System.Drawing.Point(241, 63);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(136, 25);
+            this.label6.Size = new System.Drawing.Size(68, 13);
             this.label6.TabIndex = 123;
             this.label6.Text = "Exp:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lvl
             // 
-            this.lvl.Location = new System.Drawing.Point(630, 73);
-            this.lvl.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.lvl.Location = new System.Drawing.Point(315, 38);
             this.lvl.Maximum = new decimal(new int[] {
             60,
             0,
@@ -539,7 +507,7 @@
             0,
             0});
             this.lvl.Name = "lvl";
-            this.lvl.Size = new System.Drawing.Size(72, 31);
+            this.lvl.Size = new System.Drawing.Size(36, 20);
             this.lvl.TabIndex = 122;
             this.lvl.Value = new decimal(new int[] {
             1,
@@ -549,20 +517,18 @@
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(482, 77);
-            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label5.Location = new System.Drawing.Point(241, 40);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(136, 25);
+            this.label5.Size = new System.Drawing.Size(68, 13);
             this.label5.TabIndex = 121;
             this.label5.Text = "Lv:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(482, 17);
-            this.label15.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label15.Location = new System.Drawing.Point(241, 9);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(136, 25);
+            this.label15.Size = new System.Drawing.Size(68, 13);
             this.label15.TabIndex = 141;
             this.label15.Text = "Character:";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -580,10 +546,9 @@
             "Meru",
             "Kongol",
             "Miranda"});
-            this.character.Location = new System.Drawing.Point(630, 12);
-            this.character.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.character.Location = new System.Drawing.Point(315, 6);
             this.character.Name = "character";
-            this.character.Size = new System.Drawing.Size(534, 33);
+            this.character.Size = new System.Drawing.Size(269, 21);
             this.character.TabIndex = 142;
             this.character.SelectedIndexChanged += new System.EventHandler(this.character_SelectedIndexChanged);
             // 
@@ -599,44 +564,40 @@
             "Silver",
             "Darkness",
             "Divine"});
-            this.dragoonSpirits.Location = new System.Drawing.Point(30, 304);
-            this.dragoonSpirits.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dragoonSpirits.Location = new System.Drawing.Point(15, 158);
             this.dragoonSpirits.Name = "dragoonSpirits";
-            this.dragoonSpirits.Size = new System.Drawing.Size(236, 172);
+            this.dragoonSpirits.Size = new System.Drawing.Size(120, 79);
             this.dragoonSpirits.TabIndex = 143;
             this.dragoonSpirits.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.dragoonSpirits_ItemCheck);
             // 
             // label16
             // 
-            this.label16.Location = new System.Drawing.Point(24, 273);
-            this.label16.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label16.Location = new System.Drawing.Point(12, 142);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(136, 25);
+            this.label16.Size = new System.Drawing.Size(68, 13);
             this.label16.TabIndex = 144;
             this.label16.Text = "Dragoons:";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label17
             // 
-            this.label17.Location = new System.Drawing.Point(482, 460);
-            this.label17.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label17.Location = new System.Drawing.Point(241, 239);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(136, 25);
+            this.label17.Size = new System.Drawing.Size(68, 13);
             this.label17.TabIndex = 145;
             this.label17.Text = "Armor Count:";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // armorCount
             // 
-            this.armorCount.Location = new System.Drawing.Point(630, 456);
-            this.armorCount.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.armorCount.Location = new System.Drawing.Point(315, 237);
             this.armorCount.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.armorCount.Name = "armorCount";
-            this.armorCount.Size = new System.Drawing.Size(72, 31);
+            this.armorCount.Size = new System.Drawing.Size(36, 20);
             this.armorCount.TabIndex = 146;
             this.armorCount.Value = new decimal(new int[] {
             1,
@@ -646,18 +607,16 @@
             // 
             // label18
             // 
-            this.label18.Location = new System.Drawing.Point(730, 460);
-            this.label18.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label18.Location = new System.Drawing.Point(365, 239);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(136, 25);
+            this.label18.Size = new System.Drawing.Size(68, 13);
             this.label18.TabIndex = 147;
             this.label18.Text = "Armor Slot:";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // armorSlot
             // 
-            this.armorSlot.Location = new System.Drawing.Point(878, 456);
-            this.armorSlot.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.armorSlot.Location = new System.Drawing.Point(439, 237);
             this.armorSlot.Maximum = new decimal(new int[] {
             255,
             0,
@@ -669,7 +628,7 @@
             0,
             0});
             this.armorSlot.Name = "armorSlot";
-            this.armorSlot.Size = new System.Drawing.Size(72, 31);
+            this.armorSlot.Size = new System.Drawing.Size(36, 20);
             this.armorSlot.TabIndex = 148;
             this.armorSlot.Value = new decimal(new int[] {
             1,
@@ -689,10 +648,9 @@
             "Madness Hero",
             "Moon Strike",
             "Blazing Dynamo"});
-            this.armorSlotItem.Location = new System.Drawing.Point(962, 454);
-            this.armorSlotItem.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.armorSlotItem.Location = new System.Drawing.Point(481, 236);
             this.armorSlotItem.Name = "armorSlotItem";
-            this.armorSlotItem.Size = new System.Drawing.Size(202, 33);
+            this.armorSlotItem.Size = new System.Drawing.Size(103, 21);
             this.armorSlotItem.TabIndex = 149;
             // 
             // itemSlotItem
@@ -706,16 +664,14 @@
             "Madness Hero",
             "Moon Strike",
             "Blazing Dynamo"});
-            this.itemSlotItem.Location = new System.Drawing.Point(962, 506);
-            this.itemSlotItem.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.itemSlotItem.Location = new System.Drawing.Point(481, 263);
             this.itemSlotItem.Name = "itemSlotItem";
-            this.itemSlotItem.Size = new System.Drawing.Size(202, 33);
+            this.itemSlotItem.Size = new System.Drawing.Size(103, 21);
             this.itemSlotItem.TabIndex = 154;
             // 
             // itemSlot
             // 
-            this.itemSlot.Location = new System.Drawing.Point(878, 508);
-            this.itemSlot.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.itemSlot.Location = new System.Drawing.Point(439, 264);
             this.itemSlot.Maximum = new decimal(new int[] {
             255,
             0,
@@ -727,7 +683,7 @@
             0,
             0});
             this.itemSlot.Name = "itemSlot";
-            this.itemSlot.Size = new System.Drawing.Size(72, 31);
+            this.itemSlot.Size = new System.Drawing.Size(36, 20);
             this.itemSlot.TabIndex = 153;
             this.itemSlot.Value = new decimal(new int[] {
             1,
@@ -738,25 +694,23 @@
             // 
             // label19
             // 
-            this.label19.Location = new System.Drawing.Point(730, 512);
-            this.label19.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label19.Location = new System.Drawing.Point(365, 266);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(136, 25);
+            this.label19.Size = new System.Drawing.Size(68, 13);
             this.label19.TabIndex = 152;
             this.label19.Text = "Item Slot:";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // itemCount
             // 
-            this.itemCount.Location = new System.Drawing.Point(630, 508);
-            this.itemCount.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.itemCount.Location = new System.Drawing.Point(315, 264);
             this.itemCount.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.itemCount.Name = "itemCount";
-            this.itemCount.Size = new System.Drawing.Size(72, 31);
+            this.itemCount.Size = new System.Drawing.Size(36, 20);
             this.itemCount.TabIndex = 151;
             this.itemCount.Value = new decimal(new int[] {
             1,
@@ -766,40 +720,36 @@
             // 
             // label20
             // 
-            this.label20.Location = new System.Drawing.Point(482, 512);
-            this.label20.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label20.Location = new System.Drawing.Point(241, 266);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(136, 25);
+            this.label20.Size = new System.Drawing.Size(68, 13);
             this.label20.TabIndex = 150;
             this.label20.Text = "Item Count:";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label21
             // 
-            this.label21.Location = new System.Drawing.Point(482, 321);
-            this.label21.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label21.Location = new System.Drawing.Point(241, 167);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(136, 25);
+            this.label21.Size = new System.Drawing.Size(68, 13);
             this.label21.TabIndex = 155;
             this.label21.Text = "Weapon:";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label22
             // 
-            this.label22.Location = new System.Drawing.Point(482, 361);
-            this.label22.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label22.Location = new System.Drawing.Point(241, 188);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(136, 25);
+            this.label22.Size = new System.Drawing.Size(68, 13);
             this.label22.TabIndex = 156;
             this.label22.Text = "Helmet:";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label23
             // 
-            this.label23.Location = new System.Drawing.Point(482, 402);
-            this.label23.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label23.Location = new System.Drawing.Point(241, 209);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(136, 25);
+            this.label23.Size = new System.Drawing.Size(68, 13);
             this.label23.TabIndex = 157;
             this.label23.Text = "Chest:";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -815,10 +765,9 @@
             "Madness Hero",
             "Moon Strike",
             "Blazing Dynamo"});
-            this.weapon.Location = new System.Drawing.Point(624, 321);
-            this.weapon.Margin = new System.Windows.Forms.Padding(6);
+            this.weapon.Location = new System.Drawing.Point(312, 167);
             this.weapon.Name = "weapon";
-            this.weapon.Size = new System.Drawing.Size(202, 33);
+            this.weapon.Size = new System.Drawing.Size(103, 21);
             this.weapon.TabIndex = 158;
             // 
             // helmet
@@ -832,10 +781,9 @@
             "Madness Hero",
             "Moon Strike",
             "Blazing Dynamo"});
-            this.helmet.Location = new System.Drawing.Point(624, 358);
-            this.helmet.Margin = new System.Windows.Forms.Padding(6);
+            this.helmet.Location = new System.Drawing.Point(312, 186);
             this.helmet.Name = "helmet";
-            this.helmet.Size = new System.Drawing.Size(202, 33);
+            this.helmet.Size = new System.Drawing.Size(103, 21);
             this.helmet.TabIndex = 159;
             // 
             // chest
@@ -849,10 +797,9 @@
             "Madness Hero",
             "Moon Strike",
             "Blazing Dynamo"});
-            this.chest.Location = new System.Drawing.Point(624, 399);
-            this.chest.Margin = new System.Windows.Forms.Padding(6);
+            this.chest.Location = new System.Drawing.Point(312, 207);
             this.chest.Name = "chest";
-            this.chest.Size = new System.Drawing.Size(202, 33);
+            this.chest.Size = new System.Drawing.Size(103, 21);
             this.chest.TabIndex = 160;
             // 
             // boots
@@ -866,18 +813,16 @@
             "Madness Hero",
             "Moon Strike",
             "Blazing Dynamo"});
-            this.boots.Location = new System.Drawing.Point(1024, 321);
-            this.boots.Margin = new System.Windows.Forms.Padding(6);
+            this.boots.Location = new System.Drawing.Point(512, 167);
             this.boots.Name = "boots";
-            this.boots.Size = new System.Drawing.Size(202, 33);
+            this.boots.Size = new System.Drawing.Size(103, 21);
             this.boots.TabIndex = 162;
             // 
             // label24
             // 
-            this.label24.Location = new System.Drawing.Point(882, 321);
-            this.label24.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label24.Location = new System.Drawing.Point(441, 167);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(136, 25);
+            this.label24.Size = new System.Drawing.Size(68, 13);
             this.label24.TabIndex = 161;
             this.label24.Text = "Boots:";
             this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -893,27 +838,68 @@
             "Madness Hero",
             "Moon Strike",
             "Blazing Dynamo"});
-            this.accessory.Location = new System.Drawing.Point(1024, 361);
-            this.accessory.Margin = new System.Windows.Forms.Padding(6);
+            this.accessory.Location = new System.Drawing.Point(512, 188);
             this.accessory.Name = "accessory";
-            this.accessory.Size = new System.Drawing.Size(202, 33);
+            this.accessory.Size = new System.Drawing.Size(103, 21);
             this.accessory.TabIndex = 164;
             // 
             // label25
             // 
-            this.label25.Location = new System.Drawing.Point(882, 361);
-            this.label25.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label25.Location = new System.Drawing.Point(441, 188);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(136, 25);
+            this.label25.Size = new System.Drawing.Size(68, 13);
             this.label25.TabIndex = 163;
             this.label25.Text = "Accessory:";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label26
+            // 
+            this.label26.Location = new System.Drawing.Point(241, 298);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(68, 13);
+            this.label26.TabIndex = 166;
+            this.label26.Text = "Goods:";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // goods
+            // 
+            this.goods.FormattingEnabled = true;
+            this.goods.Location = new System.Drawing.Point(244, 322);
+            this.goods.Name = "goods";
+            this.goods.Size = new System.Drawing.Size(120, 79);
+            this.goods.TabIndex = 165;
+            // 
+            // goodSlot
+            // 
+            this.goodSlot.Location = new System.Drawing.Point(328, 296);
+            this.goodSlot.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.goodSlot.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.goodSlot.Name = "goodSlot";
+            this.goodSlot.Size = new System.Drawing.Size(36, 20);
+            this.goodSlot.TabIndex = 167;
+            this.goodSlot.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.goodSlot.ValueChanged += new System.EventHandler(this.goodSlot_ValueChanged);
+            // 
             // mainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1696, 833);
+            this.ClientSize = new System.Drawing.Size(848, 433);
+            this.Controls.Add(this.goodSlot);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.goods);
             this.Controls.Add(this.accessory);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.boots);
@@ -973,7 +959,6 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "mainWindow";
@@ -998,6 +983,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.armorSlot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemSlot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.goodSlot)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1062,5 +1048,8 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.ComboBox accessory;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.CheckedListBox goods;
+        private System.Windows.Forms.NumericUpDown goodSlot;
     }
 }

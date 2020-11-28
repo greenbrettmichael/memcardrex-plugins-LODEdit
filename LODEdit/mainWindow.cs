@@ -18,11 +18,13 @@ namespace LODEdit
         Party saveParty = null;
         DragoonStats dragoonStats = null;
         Inventory inventory = null;
+        Goods keyItems = null;
         List<CharacterStats> saveCharacters = new List<CharacterStats>();
         CharacterID selectedCharacter = CharacterID.Dart;
         int selectedAddition = 0;
         int selectedArmorItem = 0;
         int selectedUsedItem = 0;
+        int selectedGoodsSlot = 2;
 
         public mainWindow()
         {
@@ -41,6 +43,7 @@ namespace LODEdit
             this.saveParty = new Party(saveData);
             this.dragoonStats = new DragoonStats(saveData);
             this.inventory = new Inventory(saveData);
+            this.keyItems = new Goods(saveData);
             itemSlotItem.DataSource = inventory.getItemList();
             armorSlotItem.DataSource = inventory.getArmorList();
             weapon.DataSource = inventory.getArmorList();
@@ -149,6 +152,75 @@ namespace LODEdit
             inventory.usedItems[selectedUsedItem] = (InventoryItem)itemSlotItem.SelectedItem;
         }
 
+        private void loadKeyItems()
+        {
+            selectedGoodsSlot = selectedGoodsSlot = (int)clampNumeric(goodSlot);
+            goods.Items.Clear();
+            switch (selectedGoodsSlot)
+            {
+                case 2:
+                    foreach (Goods2 value in Enum.GetValues(typeof(Goods2)))
+                    {
+                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
+                    }
+                    break;
+                case 3:
+                    foreach (Goods3 value in Enum.GetValues(typeof(Goods3)))
+                    {
+                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
+                    }
+                    break;
+                case 4:
+                    foreach (Goods4 value in Enum.GetValues(typeof(Goods4)))
+                    {
+                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
+                    }
+                    break;
+                case 5:
+                    foreach (Goods5 value in Enum.GetValues(typeof(Goods5)))
+                    {
+                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
+                    }
+                    break;
+                case 6:
+                    foreach (Goods6 value in Enum.GetValues(typeof(Goods6)))
+                    {
+                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
+                    }
+                    break;
+                case 7:
+                    foreach (Goods7 value in Enum.GetValues(typeof(Goods7)))
+                    {
+                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
+                    }
+                    break;
+                case 8:
+                    foreach (Goods8 value in Enum.GetValues(typeof(Goods8)))
+                    {
+                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void updateKeyItems()
+        {
+            for (int i = 0; i < goods.Items.Count; i++)
+            {
+                CheckState st = goods.GetItemCheckState(i);
+                if (st == CheckState.Checked)
+                {
+                    keyItems.addGood(goods.Items[i], selectedGoodsSlot);
+                }
+                else
+                {
+                    keyItems.removeGood(goods.Items[i], selectedGoodsSlot);
+                }
+            }
+        }
+
         private void updateCharacterStats()
         {
             CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
@@ -198,6 +270,8 @@ namespace LODEdit
             loadUsedItem();
             armorCount.Value = inventory.armorCount;
             itemCount.Value = inventory.itemCount;
+
+            loadKeyItems();
         }
 
         private void updateData()
@@ -228,6 +302,8 @@ namespace LODEdit
             inventory.armorCount = (uint)clampNumeric(armorCount);
             inventory.itemCount = (uint)clampNumeric(itemCount);
             inventory.updateData();
+
+            keyItems.updateData();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -285,6 +361,12 @@ namespace LODEdit
         {
             updateUsedItem();
             loadUsedItem();
+        }
+
+        private void goodSlot_ValueChanged(object sender, EventArgs e)
+        {
+            updateKeyItems();
+            loadKeyItems();
         }
     }
 }
