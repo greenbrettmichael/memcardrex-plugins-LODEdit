@@ -19,6 +19,7 @@ namespace LODEdit
         DragoonStats dragoonStats = null;
         Inventory inventory = null;
         Goods keyItems = null;
+        Warp warp = null;
         List<CharacterStats> saveCharacters = new List<CharacterStats>();
         CharacterID selectedCharacter = CharacterID.Dart;
         int selectedAddition = 0;
@@ -44,6 +45,7 @@ namespace LODEdit
             this.dragoonStats = new DragoonStats(saveData);
             this.inventory = new Inventory(saveData);
             this.keyItems = new Goods(saveData);
+            this.warp = new Warp(saveData);
             itemSlotItem.DataSource = inventory.getItemList();
             armorSlotItem.DataSource = inventory.getArmorList();
             weapon.DataSource = inventory.getArmorList();
@@ -305,6 +307,9 @@ namespace LODEdit
 
             updateKeyItems();
             keyItems.updateData();
+
+            warp.saveLocation = 4;
+            warp.updateData();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

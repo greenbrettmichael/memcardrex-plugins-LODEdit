@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="SaveData.cs" />
     <Compile Include="TimePlayed.cs" />
+    <Compile Include="Warp.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="aboutWindow.resx">
