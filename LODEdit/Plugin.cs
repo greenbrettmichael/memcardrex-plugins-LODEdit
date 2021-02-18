@@ -52,7 +52,7 @@ namespace rexPluginSystem
         public string[] getSupportedProductCodes()
         {
             //All versions of The Legend of Dragoon are supported
-            return new string[] { "SCUS-94491" };
+            return new string[] { "SCUS-94491", "SCESP03047", "SCES-03047" };
         }
 
         //A data to process. Edited save data should be returned.
