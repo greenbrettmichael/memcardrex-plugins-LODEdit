@@ -1,6 +1,6 @@
 ﻿namespace LODEdit
 {
-    partial class mainWindow
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -89,6 +89,7 @@
             this.label26 = new System.Windows.Forms.Label();
             this.goods = new System.Windows.Forms.CheckedListBox();
             this.goodSlot = new System.Windows.Forms.NumericUpDown();
+            this.AdvancedButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.goldNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeMinutes)).BeginInit();
@@ -892,11 +893,22 @@
             0});
             this.goodSlot.ValueChanged += new System.EventHandler(this.goodSlot_ValueChanged);
             // 
+            // AdvancedButton
+            // 
+            this.AdvancedButton.Location = new System.Drawing.Point(481, 370);
+            this.AdvancedButton.Name = "AdvancedButton";
+            this.AdvancedButton.Size = new System.Drawing.Size(75, 23);
+            this.AdvancedButton.TabIndex = 168;
+            this.AdvancedButton.Text = "Advanced";
+            this.AdvancedButton.UseVisualStyleBackColor = true;
+            this.AdvancedButton.Click += new System.EventHandler(this.AdvancedButton_Click);
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(848, 433);
+            this.Controls.Add(this.AdvancedButton);
             this.Controls.Add(this.goodSlot);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.goods);
@@ -961,7 +973,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "mainWindow";
+            this.Name = "MainWindow";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "mainWindow";
@@ -1051,5 +1063,6 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.CheckedListBox goods;
         private System.Windows.Forms.NumericUpDown goodSlot;
+        private System.Windows.Forms.Button AdvancedButton;
     }
 }

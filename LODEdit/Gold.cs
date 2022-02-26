@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LODEdit
+﻿namespace LODEdit
 {
-    class Gold
+    internal class Gold
     {
-        private SaveData saveData;
-        private Int32 saveInfoIndex = 0x021C;
-        private Int32 gameIndex = 0x0314;
+        private readonly SaveData saveData;
+        private const int SaveInfoIndex = 0x021C;
+        private const int GameIndex = 0x0314;
 
         public uint gold;
 
@@ -16,18 +12,18 @@ namespace LODEdit
         {
             this.saveData = saveData;
 
-            loadData();
+            LoadData();
         }
 
-        private void loadData()
+        private void LoadData()
         {
-            gold = saveData.load16bitUint(gameIndex);
+            gold = saveData.Load16BitUint(GameIndex);
         }
 
-        public void updateData()
+        public void UpdateData()
         {
-            saveData.save16bitUint(saveInfoIndex, gold);
-            saveData.save16bitUint(gameIndex, gold);
+            saveData.Save16BitUint(SaveInfoIndex, gold);
+            saveData.Save16BitUint(GameIndex, gold);
         }
     }
 }
