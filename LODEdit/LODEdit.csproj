@@ -47,12 +47,6 @@
     <Compile Include="aboutWindow.Designer.cs">
       <DependentUpon>aboutWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="AdvancedWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AdvancedWindow.Designer.cs">
-      <DependentUpon>AdvancedWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="CharacterStats.cs" />
     <Compile Include="DragoonStats.cs" />
     <Compile Include="Gold.cs" />
