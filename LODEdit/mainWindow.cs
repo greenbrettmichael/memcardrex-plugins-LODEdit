@@ -56,6 +56,9 @@ namespace LODEdit
                 saveCharacters.Add(new CharacterStats(characterId, saveData));
             }
 
+            LocationText.DataSource = warp.locationTextList;
+            WarpSelection.DataSource = warp.warpsList;
+
             LoadData();
 
             ShowDialog();
@@ -182,6 +185,28 @@ namespace LODEdit
             }
         }
 
+        private void UpdateLocationText()
+        {
+            warp.locationTextValue = (int)warp.locationTextList[LocationText.SelectedIndex];
+        }
+
+        private void LoadLocationText()
+        {
+            LocationText locationTextValue = warp.GetLocationTextFromCode(warp.locationTextValue);
+            LocationText.SelectedIndex = warp.locationTextList.FindIndex(currText => currText == locationTextValue);
+        }
+
+        private void UpdateWarp()
+        {
+            warp.warpValue = (int)warp.warpsList[WarpSelection.SelectedIndex];
+        }
+
+        private void LoadWarp()
+        {
+            SaveLocation saveLocationValue = warp.GetWarpFromCode(warp.warpValue);
+            WarpSelection.SelectedIndex = warp.warpsList.FindIndex(currWarp => currWarp == saveLocationValue);
+        }
+
         private void UpdateKeyItems()
         {
             for (var i = 0; i < goods.Items.Count; i++)
@@ -240,6 +265,9 @@ namespace LODEdit
             itemCount.Value = inventory.itemCount;
 
             LoadKeyItems();
+
+            LoadLocationText();
+            LoadWarp();
         }
 
         private void UpdateData()
@@ -271,7 +299,6 @@ namespace LODEdit
             UpdateKeyItems();
             keyItems.UpdateData();
 
-            warp.saveLocation = 4;
             warp.UpdateData();
         }
 
@@ -334,10 +361,16 @@ namespace LODEdit
             LoadKeyItems();
         }
 
-        private void AdvancedButton_Click(object sender, EventArgs e)
+        private void LocationText_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var advancedWindow = new AdvancedWindow();
-            advancedWindow.Show();
+            UpdateLocationText();
+            LoadLocationText();
+        }
+
+        private void WarpSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateWarp();
+            LoadWarp();
         }
     }
 }

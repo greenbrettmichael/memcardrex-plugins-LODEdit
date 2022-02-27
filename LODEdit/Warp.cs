@@ -1,7 +1,11 @@
-﻿namespace LODEdit
+﻿using System;
+using System.Collections.Generic;
+
+namespace LODEdit
 {
-    internal enum SaveLocationText
+    internal enum LocationText
     {
+        Invalid = 0,
         Forest = 1,
         Forest_2 = 2,
         Seles = 3,
@@ -63,6 +67,7 @@
 
     internal enum SaveLocation
     {
+        Invalid = 0,
         Debug_Room_Disk_1 = 1,
         Debug_Room_Disk_2 = 2,
         Debug_Room_Disk_3 = 3,
@@ -357,9 +362,14 @@
     internal class Warp
     {
         private readonly SaveData saveData;
-        private const int SaveInfoIndex = 0x022C;
+        private const int LocationTextIndex = 0x022C;
+        private const int WarpIndexRoom = 0x0324;
+        private const int WarpIndexSpace = 0x0328;
 
-        public int saveLocation;
+        public int locationTextValue;
+        public int warpValue;
+        public List<LocationText> locationTextList = new List<LocationText>((LocationText[])Enum.GetValues(typeof(LocationText)));
+        public List<SaveLocation> warpsList = new List<SaveLocation>((SaveLocation[]) Enum.GetValues(typeof(SaveLocation)));
 
         public Warp(SaveData saveData)
         {
@@ -368,14 +378,35 @@
             LoadData();
         }
 
+        public LocationText GetLocationTextFromCode(int code)
+        {
+            if (Enum.IsDefined(typeof(LocationText), code))
+            {
+                return (LocationText)code;
+            }
+            return LocationText.Invalid;
+        }
+
+        public SaveLocation GetWarpFromCode(int code)
+        {
+            if (Enum.IsDefined(typeof(SaveLocation), code))
+            {
+                return (SaveLocation)code;
+            }
+            return SaveLocation.Invalid;
+        }
+
         private void LoadData()
         {
-            saveLocation = saveData.Load16BitInt(SaveInfoIndex);
+            locationTextValue = saveData.Load16BitInt(LocationTextIndex);
+            warpValue = saveData.Load32BitInt(WarpIndexRoom);
         }
 
         public void UpdateData()
         {
-            saveData.Save16BitInt(SaveInfoIndex, saveLocation);
+            saveData.Save16BitInt(LocationTextIndex, locationTextValue);
+            saveData.Save32BitInt(WarpIndexRoom, 1); // TODO this is the position in the room
+            saveData.Save32BitInt(WarpIndexSpace, warpValue);
         }
     }
 }
