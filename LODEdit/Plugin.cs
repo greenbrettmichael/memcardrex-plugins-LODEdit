@@ -1,9 +1,6 @@
 ﻿//The Legend of Dragoon save editor
 //Shendo 2010 - 2013
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using LODEdit;
 using System.Windows.Forms;
 
@@ -24,27 +21,27 @@ namespace rexPluginSystem
 
     public class rexPlugin : rexPluginInterfaceV2
     {
-        private const string pluginName = "LODEdit";
-        private const string pluginVersion = "0.1";
-        private const string pluginAuthor = "greenbrettmichael";
-        private const string pluginSupportedGames = "The Legend of Dragoon";
+        private const string PluginName = "LODEdit";
+        private const string PluginVersion = "0.1";
+        private const string PluginAuthor = "greenbrettmichael";
+        private const string PluginSupportedGames = "The Legend of Dragoon";
 
         //Return Plugin's name (name + plugin version is recommended)
         public string getPluginName()
         {
-            return pluginName + " " + pluginVersion;
+            return PluginName + " " + PluginVersion;
         }
 
         //Return Author's name.
         public string getPluginAuthor()
         {
-            return pluginAuthor;
+            return PluginAuthor;
         }
 
         //Return a list of games supported by the plugin
         public string getPluginSupportedGames()
         {
-            return pluginSupportedGames;
+            return PluginSupportedGames;
         }
 
         //Return a string array of product codes compatible with this plugin.
@@ -60,20 +57,20 @@ namespace rexPluginSystem
         public byte[] editSaveData(byte[] gameSaveData, string saveProductCode)
         {
             //Make a new instance of the main window
-            mainWindow mainDialog = new mainWindow();
+            var mainDialog = new MainWindow();
 
             //Initialize main dialog
-            return mainDialog.initDialog(pluginName + " " + pluginVersion, gameSaveData);
+            return mainDialog.InitDialog(PluginName + " " + PluginVersion, gameSaveData);
         }
 
         public void showAboutDialog()
         {
-            new AboutWindow().initDialog(pluginName, pluginVersion, pluginSupportedGames, "Author: " + pluginAuthor, "Supported product codes:\nSCUS-94491 - NTSC U/C");
+            new AboutWindow().InitDialog(PluginName, PluginVersion, PluginSupportedGames, "Author: " + PluginAuthor, "Supported product codes:\nSCUS-94491 - NTSC U/C");
         }
 
         public void showConfigDialog()
         {
-            MessageBox.Show("This plugin has no options you can configure.", pluginName + " " + pluginVersion);
+            MessageBox.Show("This plugin has no options you can configure.", PluginName + " " + PluginVersion);
         }
     }
 }

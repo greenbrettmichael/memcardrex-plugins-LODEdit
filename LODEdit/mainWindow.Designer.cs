@@ -1,6 +1,6 @@
 ﻿namespace LODEdit
 {
-    partial class mainWindow
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -89,6 +89,10 @@
             this.label26 = new System.Windows.Forms.Label();
             this.goods = new System.Windows.Forms.CheckedListBox();
             this.goodSlot = new System.Windows.Forms.NumericUpDown();
+            this.LocationText = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.WarpSelection = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.goldNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeMinutes)).BeginInit();
@@ -892,11 +896,400 @@
             0});
             this.goodSlot.ValueChanged += new System.EventHandler(this.goodSlot_ValueChanged);
             // 
-            // mainWindow
+            // LocationText
+            // 
+            this.LocationText.FormattingEnabled = true;
+            this.LocationText.Items.AddRange(new object[] {
+            "Forest",
+            "Forest_2",
+            "Seles",
+            "Hellena_Prison",
+            "Prairie",
+            "Cave",
+            "Bale",
+            "Indels_Castle",
+            "Town_Of_Hoax",
+            "Marshland",
+            "Volcano_Villude",
+            "Nest_Of_Dragon",
+            "Lohan",
+            "Shirleys_Shrine",
+            "Kazas",
+            "Black_Castle",
+            "Fletz",
+            "Twin_Castle",
+            "Barrens",
+            "Donau",
+            "Valley",
+            "Giganto_Home",
+            "The_Queen_Fury",
+            "Phantom_Ship",
+            "Lidiera",
+            "Undersea_Cavern",
+            "Feuno",
+            "Prison_Island",
+            "Furni",
+            "Evergreen_Forest",
+            "Deningrad",
+            "Crystal_Palace",
+            "Neet",
+            "Wingly_Forest",
+            "Forbidden_Land",
+            "Mountain_Of_Mortal_Dragon",
+            "Kashua_Glacier",
+            "Flanvel_Tower",
+            "Snowfield",
+            "Fort_Magrad",
+            "Vellweb",
+            "Death_Frontier",
+            "Ulara",
+            "Zenebatos",
+            "Mayfil",
+            "Rouge",
+            "Aglis",
+            "Divine_Tree",
+            "Moon",
+            "South_Of_Serdio",
+            "North_Of_Serdio",
+            "Tiberoa",
+            "Illisa_Bay",
+            "Mille_Seseau",
+            "Gloriano",
+            "Death_Frontier_Outside",
+            "Endiness"});
+            this.LocationText.Location = new System.Drawing.Point(15, 258);
+            this.LocationText.Name = "LocationText";
+            this.LocationText.Size = new System.Drawing.Size(207, 21);
+            this.LocationText.TabIndex = 168;
+            this.LocationText.SelectedIndexChanged += new System.EventHandler(this.LocationText_SelectedIndexChanged);
+            // 
+            // label27
+            // 
+            this.label27.Location = new System.Drawing.Point(12, 242);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(68, 13);
+            this.label27.TabIndex = 169;
+            this.label27.Text = "Location:";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label28
+            // 
+            this.label28.Location = new System.Drawing.Point(12, 282);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(68, 13);
+            this.label28.TabIndex = 170;
+            this.label28.Text = "Warp:";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // WarpSelection
+            // 
+            this.WarpSelection.FormattingEnabled = true;
+            this.WarpSelection.Items.AddRange(new object[] {
+            "Debug_Room_Disk_1",
+            "Debug_Room_Disk_2",
+            "Debug_Room_Disk_3",
+            "Debug_Room_Disk_4",
+            "Forest_Log_Bridge_Over_Chasm",
+            "Forest_Log_Bridge_Over_River_With_Shana_Dog_Cutscene",
+            "Forest_Path_To_Prairie_And_Hellena_Prison_Overworld",
+            "Seles_Bootleg_Dart",
+            "Seles_Cutscene_Overlooking_Burning_Seles",
+            "Seles_Save_Point_Entrance_Where_Dart_Fights_2_Soldiers",
+            "Seles_Basement_Of_Burned_Down_House_After_Second_Freugal",
+            "Seles_Main_Area_With_Commander_Fight_And_Graveyard",
+            "Hellena_Prison_Road_To_Prison",
+            "Hellena_Prison_Drawbridge",
+            "Hellena_Prison_Entrance_To_Prison_On_Horse",
+            "Hellena_Prison_Save_Point_Lobby_Where_Merchant_Is_First_Found",
+            "Hellena_Prison_Elevator_Floor_Level",
+            "Hellena_Prison_Elevator_Second_Floor_With_Doors_To_Inside_Platforms",
+            "Hellena_Prison_Spiral_Walkway_To_Outside_Prison_Towers",
+            "Hellena_Prison_Save_Point_Outside_Prison_Towers",
+            "Hellena_Prison_Guard_Break_Room_With_Furnace",
+            "Hellena_Prison_Elevator_Top_Floor_Level_With_Bridge",
+            "Hellena_Prison_Stairs_To_Outside_Prison_Towers_With_Merchant_Chests",
+            "Hellena_Prison_Prison_Cells_Meeting_Lavitz",
+            "Hellena_Prison_Prison_Cells_Entrance_Beside_Lavitz_Meeting",
+            "Hellena_Prison_Prison_Cells_With_Elevator_Animation_And_Two_Enterable_Cells",
+            "Hellena_Prison_Prison_Cells_Outside_Shanas_Cell",
+            "Hellena_Prison_Prison_Cells_Entrance_Beside_Shana_Meeting",
+            "Hellena_Prison_Prison_Cells_With_One_Enterable_Cell",
+            "Hellena_Prison_Dungeon_With_Jiango",
+            "Hellena_Prison_Room_Outside_Dungeon_With_Shanas_Key",
+            "Hellena_Prison_First_Stairway_Up_To_Freugals_Keep_With_Stalagmites",
+            "Hellena_Prison_Second_Stairway_Up_To_Freugals_Keep_With_Stalagmites",
+            "Hellena_Prison_Save_Point_Outside_Freugals_Keep",
+            "Hellena_Prison_Cutscene_Freugals_Keep_With_Albert_Before_Dawn",
+            "Hellena_Prison_Freugals_Keep",
+            "Hellena_Prison_Entrance_To_Prison_In_Wagon",
+            "Prairie_Entrance_Where_Lavitz_Is_Shot_With_An_Arrow",
+            "Prairie_Fork_In_Road_With_Tree_Sign",
+            "Prairie_Outside_Shed",
+            "Prairie_Inside_Shed",
+            "Prairie_Falling_Tree_Is_Chopped_Down_With_Axe",
+            "Prairie_Fast_River_With_Tree_Bridge",
+            "Prairie_Exit_With_Family",
+            "Cave_Entrance",
+            "Cave_Sliding_Waterfall",
+            "Cave_Skipping_Stones_Where_Lavitz_Falls",
+            "Cave_Rock_Bridges_With_Fireflies",
+            "Cave_Water_Platform_Steps_Outside_Snake_Room",
+            "Cave_Capture_Frog_Minigame",
+            "Cave_Thin_Rock_Bridge_Outside_Snake_Room",
+            "Cave_Save_Point_Snake_Room",
+            "Cave_Cutscene_Snake_Fight",
+            "Cave_Cave_Ceiling_Cutaway_To_Exit",
+            "Hellena_Prison_Cutscene_Escaping_Hellena",
+            "Bale_Cutscene_Lavitzs_Roof",
+            "Bale_Entrance_With_Fountain_And_Inn",
+            "Bale_Underground_Entrance_Dran",
+            "Bale_Outside_Lavitzs_House_With_Well",
+            "Bale_Rock_Statue_Plaza_Marketplace_Outside_Weapon_Shop",
+            "Bale_Alley_With_Mop_Knight_Kid_Behind_Clinic",
+            "Bale_Save_Point_Inn",
+            "Bale_Disc_1_Martel_House_Next_To_Lavitzs",
+            "Bale_Lavitz_Portrait_House_Downstairs",
+            "Bale_Lavitz_Portrait_House_Upstairs",
+            "Bale_Underground_Room_By_Cellar_Stardust",
+            "Bale_Room_Upstairs_From_Cellar_Stardust",
+            "Bale_Barn",
+            "Bale_Clinic_Patient_Rooms",
+            "Bale_Clinic_Upstairs_Beds",
+            "Bale_Clinic_Healing",
+            "Bale_Lavitzs_House_First_Floor",
+            "Bale_Lavitzs_House_Second_Floor",
+            "Bale_Weapon_Shop",
+            "Bale_Item_Shop",
+            "Bale_Library",
+            "Bale_Indels_Castle_Outside",
+            "Indels_Castle_Bridge_Between_Towers",
+            "Indels_Castle_Canal",
+            "Indels_Castle_Canal_By_Dran",
+            "Indels_Castle_First_Floor_With_Blacksmith",
+            "Indels_Castle_Second_Floor_With_Banquet_Hall",
+            "Indels_Castle_Third_Floor_Underneath_Throne_Room",
+            "Indels_Castle_Throne_Room",
+            "Indels_Castle_Balcony",
+            "Town_Of_Hoax_Outside_Before_Attack",
+            "Town_Of_Hoax_Watch_During_Attack",
+            "Town_Of_Hoax_Save_Point_Outside_After_Attack",
+            "Town_Of_Hoax_Fireplace_Stardust",
+            "Town_Of_Hoax_Messy_House_With_Grandfather_Clock",
+            "Town_Of_Hoax_Barracks",
+            "Town_Of_Hoax_Church",
+            "Town_Of_Hoax_Headquarters",
+            "Town_Of_Hoax_Inn",
+            "Town_Of_Hoax_Attic",
+            "Town_Of_Hoax_Basement_With_Old_Woman_In_Rocking_Chair",
+            "Marshland_Entrance_With_Sign",
+            "Marshland_Fort_With_Crows",
+            "Marshland_Outside_Fort_With_Fighting_Soldiers",
+            "Marshland_Inside_Fort_With_Poisoned_Soldiers",
+            "Marshland_Exit_With_Shana_Piggy_Back_Scene",
+            "Marshland_Giant_Root_With_Magic_Signet_Stone",
+            "Town_Of_Hoax_During_Attack_Assassin",
+            "Town_Of_Hoax_During_Attack_Kongol",
+            "Volcano_Villude_Entrance",
+            "Volcano_Villude_Descent_With_Lava_Floe",
+            "Volcano_Villude_Toothy_Hallway_With_Jump_Gap_Over_Lava",
+            "Volcano_Villude_Toothy_Jumping_Path_To_Chest_With_Roots_From_Ceiling",
+            "Volcano_Villude_Save_Point_Dabas_In_Background",
+            "Volcano_Villude_Lava_Fish",
+            "Volcano_Villude_Wounded_Virage_Room_Before",
+            "Volcano_Villude_Fire_Bird_Room",
+            "Volcano_Villude_Exit_No_Lava_With_Dabas_Merchant",
+            "Volcano_Villude_Wounded_Virage_Room_After",
+            "Nest_Of_Dragon_Entrance",
+            "Nest_Of_Dragon_Hallway_Between_Entrance_Pit_And_Obstacle_To_Shirleys_Shrine",
+            "Nest_Of_Dragon_Path_With_Obstacle_To_Shirleys_Shrine",
+            "Nest_Of_Dragon_Outside_Pit",
+            "Nest_Of_Dragon_Room_With_Healing_Pool",
+            "Nest_Of_Dragon_Save_Point_Room_With_Seaweed_Barriers_Before_Feyrbrand",
+            "Nest_Of_Dragon_Feyrbrand",
+            "Lohan_Entrance",
+            "Lohan_Rug_Buskers_With_Water_Bottle_Merchant",
+            "Lohan_Stair_Mess_Outside_Weapon_And_Item_Shops",
+            "Lohan_Stair_Mess_Outside_Inn_And_Clinic",
+            "Lohan_Inside_Building_With_Planetarium",
+            "Lohan_Inside_Building_With_Weapon_And_Item_Shops",
+            "Lohan_Save_Point_Inside_Building_With_Inn",
+            "Lohan_On_Rooftops",
+            "Lohan_Dabas_House",
+            "Lohan_Arena_Entrance",
+            "Lohan_Save_Point_Arena_Back_Area_By_Obstacle_Course",
+            "Lohan_Area_By_Hero_Competition_Registration",
+            "Lohan_Monster_Conquest_Minigame",
+            "Shirleys_Shrine_Entrance",
+            "Shirleys_Shrine_Hub_With_Entrances_To_Puzzle_Rooms",
+            "Shirleys_Shrine_Room_With_Ship_Wheel_And_Gold_Statue",
+            "Shirleys_Shrine_Room_With_Silver_Statue",
+            "Shirleys_Shrine_Enter_Puzzle_Code",
+            "Shirleys_Shrine_Dumping_Platform_And_Stairs_With_Statues",
+            "Shirleys_Shrine_Save_Point_Outside_Shirley_Fight",
+            "Shirleys_Shrine_Treasure_Room",
+            "Shirleys_Shrine_Shirley_Fight",
+            "Shirleys_Shrine_Room_Outside_Dragoon_Spirit_Shine_With_Sigil",
+            "Shirleys_Shrine_Cutscene_Ride_Tram_Puzzle_Code_Room",
+            "Shirleys_Shrine_Cutscene_Ride_Tram_Gold_Statue_Room",
+            "Shirleys_Shrine_Cutscene_Ride_Tram_Hub_Room",
+            "Shirleys_Shrine_Cutscene_Ride_Tram_Silver_Statue_Room",
+            "Kazas_Entrance",
+            "Kazas_Guard_House",
+            "Kazas_Materiel_Storage",
+            "Kazas_Inn",
+            "Kazas_Weapon_Shop_With_Feyrbrand_Slayer",
+            "Kazas_Housing",
+            "Kazas_Outside_Black_Castle_Between_Drawbridge_And_Resistance_Town",
+            "Kazas_Outside_Resistance_Town",
+            "Kazas_Resistance_Town_Library",
+            "Kazas_Resistance_Town_Clinic",
+            "Kazas_Save_Point_Popos_House",
+            "Kazas_Tunnels_Under_Black_Castle",
+            "Kazas_Room_Before_Tunnels",
+            "Black_Castle_Soldier_Chase_Section",
+            "Black_Castle_Hallway_Between_Black_Castle_Entrance_And_Drawbridge_With_Two_Ladder" +
+                "s",
+            "Black_Castle_Hallway_Outside_Scientists_Two_Elevators",
+            "Black_Castle_Drawbridge",
+            "Black_Castle_Cable_Car_With_Secret_Merchant",
+            "Black_Castle_Entrance_To_Castle_Walls_From_Elevator",
+            "Black_Castle_Castle_Walls_Beside_Cable_Car",
+            "Black_Castle_Castle_Walls_With_Three_Training_Soldiers",
+            "Black_Castle_White_And_Purple_Magic_Scientists",
+            "Black_Castle_Dragon_Corpse_Scientist_Room",
+            "Black_Castle_Garbage_Upper",
+            "Black_Castle_Garbage_Lower",
+            "Black_Castle_Dog_Scientist",
+            "Black_Castle_Doel_Throne_Room",
+            "Fletz_Entrance_With_Nellos_Home_And_Claires_Bridge_Day",
+            "Fletz_Outside_Shopsclinic_And_Castle_Day",
+            "Fletz_Inside_Nellos_Home",
+            "Fletz_Inside_Weapon_Shop",
+            "Fletz_Sleepless_House",
+            "Fletz_Save_Point_Inn",
+            "Fletz_Bar_Day",
+            "Fletz_Bandit_Complainer_House",
+            "Fletz_Clinic_First_Floor_Beds",
+            "Fletz_Clinic_Healing",
+            "Fletz_Inside_Accessory_Shop",
+            "Fletz_Festers_House",
+            "Fletz_Church",
+            "Fletz_Inside_Item_Shop",
+            "Fletz_Broken_Planetarium_Date",
+            "Fletz_Working_Planetarium",
+            "Fletz_Entrance_With_Nellos_Home_And_Claires_Bridge_Night",
+            "Fletz_Outside_Shopsclinic_And_Castle_Night",
+            "Fletz_Bar_Night",
+            "Fletz_Cutscene_Marketplace_With_Guard_And_Albert",
+            "Twin_Castle_Save_Point_After_Fester_Visit",
+            "Twin_Castle_Save_Point_During_Fester_Visit",
+            "Twin_Castle_Outside_Moon_Tower",
+            "Twin_Castle_Queen_Fury_Before_Board",
+            "Twin_Castle_Hallway_With_Training_Room_And_Seamstress",
+            "Twin_Castle_Guest_Room_Day",
+            "Twin_Castle_Guest_Room_Night",
+            "Twin_Castle_Throne_Room_After_Fester_Visit",
+            "Twin_Castle_Cutscene_Throne_Room_During_Fester_Visit",
+            "Twin_Castle_Cutscene_Throne_Room_King_And_Albert",
+            "Barrens_Entrance",
+            "Barrens_Mappi_Ambush_Overpass",
+            "Barrens_Exit_With_Stairs",
+            "Fletz_Cutscene_Marketplace_With_Guard_And_Meru",
+            "Fletz_Cutscene_Moon_That_Never_Sets_From_Festers_House",
+            "Twin_Castle_Cutscene_Throne_Room_Lenus_Moon_Dagger",
+            "Twin_Castle_Save_Point_Returning_Heroes",
+            "Twin_Castle_Cutscene_Returning_Heroes_Banquet",
+            "Donau_Entrance_Welcome_To_Donau",
+            "Donau_Cutscene_Wink_Bandits",
+            "Donau_Outside_Mayors_House",
+            "Donau_Port",
+            "Donau_Kates_House",
+            "Donau_Church",
+            "Donau_Save_Point_Inn",
+            "Donau_Clinic_Healing",
+            "Donau_Items_And_Weapons_Shop",
+            "Donau_Mayors_House",
+            "Donau_Bar",
+            "Donau_Outside_Mayors_House_Meru",
+            "Valley_Entrance_Gate_Closed",
+            "Valley_After_Gate_Long_Platform_And_Fireflies_Exit_Tree",
+            "Valley_After_Entering_Tree_Has_Root_To_Floating_Platforms",
+            "Valley_Two_Upside_Down_Platforms_One_U_Shaped",
+            "Valley_Save_Point_Room_Before_Completed_Virage",
+            "Valley_Room_After_Completed_Virage",
+            "Valley_Four_Circular_Floating_Platforms",
+            "Valley_Entrance_Gate_Open",
+            "Donau_Wedding",
+            "Twin_Castle_Cutscene_Rouge_Send_Off",
+            "Home_Of_Giganto_Entrance",
+            "Home_Of_Giganto_Building_By_Entrance_With_Weapons",
+            "Home_Of_Giganto_Rolling_Gate_And_Face_Wall",
+            "Home_Of_Giganto_Save_Point_Stairs_To_Gehrich_And_Fireflies",
+            "Home_Of_Giganto_Gehrich_Statue_Room_After_Fight",
+            "Home_Of_Giganto_Cutscene_Gehrich_Chair_Statue",
+            "Home_Of_Giganto_Basement_Under_Gehrich_Chair",
+            "The_Queen_Fury_Save_Point_Front_Of_Ship",
+            "The_Queen_Fury_Hub_Between_Front_Kitchen_Rooms",
+            "The_Queen_Fury_Stairs_Between_Hub_And_Ships_Cabin",
+            "The_Queen_Fury_Ships_Cabin",
+            "The_Queen_Fury_Cabin_Room_With_Albert",
+            "The_Queen_Fury_Kitchen",
+            "The_Queen_Fury_Cabin_Room_With_Meru",
+            "The_Queen_Fury_Large_Boiler_Room",
+            "The_Queen_Fury_Small_Boiler_Room_With_Kongol",
+            "The_Queen_Fury_Crows_Nest",
+            "The_Queen_Fury_Cutscene_Haschel_Flashback_To_Claire_In_Rouge",
+            "Phantom_Ship_Save_Point_Phantom_Ship_And_Queen_Fury_Crash_Section",
+            "Phantom_Ship_Front_Of_Ship_On_Upper_Deck",
+            "Phantom_Ship_Skeletons_Around_Password_Chest",
+            "Phantom_Ship_Portrait_Room",
+            "Phantom_Ship_Hallway_Down_Stairs_With_Will_O_Wisps_And_Two_Doors",
+            "Phantom_Ship_Skeleton_Room_With_Chest_Up_Ladder",
+            "Phantom_Ship_Kitchen",
+            "Phantom_Ship_Room_With_Hole_In_Floor_And_Wall",
+            "Phantom_Ship_Crib_Room",
+            "Phantom_Ship_Hallway_With_Will_Owisps_To_Captain",
+            "Lidiera_Outside_Canoe_Area",
+            "Lidiera_Save_Point_Tent_With_Stardust",
+            "Lidiera_Leaning_Tent",
+            "Lidiera_Tent_With_Dog",
+            "Undersea_Cavern_Entrance_Full",
+            "Undersea_Cavern_Entrance_Drained",
+            "Undersea_Cavern_Overlapping_Cave_Section",
+            "Undersea_Cavern_Overlapping_Colorful_Section",
+            "Undersea_Cavern_Save_Point_Colorful_Spiral_Staircase",
+            "Undersea_Cavern_Whirlpool",
+            "Feuno_Save_Point_Outside_Inn_Clinic_Spa",
+            "Feuno_Marketplace_With_Vegetable_Busker",
+            "Feuno_Port",
+            "Feuno_Inn_Lower_Floor_Hotel_Available",
+            "Feuno_Inn_Upper_Floor",
+            "Feuno_Inn_Upper_Floor_Room_1_Bed",
+            "Feuno_Spa",
+            "Feuno_Clinic_Lobby",
+            "Feuno_Clinic_Healing",
+            "Feuno_Inn_Upper_Floor_Room_4_Beds",
+            "Feuno_Inn_Lower_Floor_Full_Hotel",
+            "Phantom_Ship_Cutscene_Sailors_Observing_Phantom_Ship",
+            "Phantom_Ship_Cutscene_Queen_Fury_Leaving",
+            "Prison_Island_Hallway_To_Lenus_Fight",
+            "Prison_Island_Cutscene_Intro_ToLenus_Fight",
+            "Prison_Island_Lenus_Fight"});
+            this.WarpSelection.Location = new System.Drawing.Point(15, 298);
+            this.WarpSelection.Name = "WarpSelection";
+            this.WarpSelection.Size = new System.Drawing.Size(207, 21);
+            this.WarpSelection.TabIndex = 171;
+            this.WarpSelection.SelectedIndexChanged += new System.EventHandler(this.WarpSelection_SelectedIndexChanged);
+            // 
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(848, 433);
+            this.Controls.Add(this.WarpSelection);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.LocationText);
             this.Controls.Add(this.goodSlot);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.goods);
@@ -961,7 +1354,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "mainWindow";
+            this.Name = "MainWindow";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "mainWindow";
@@ -1051,5 +1444,9 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.CheckedListBox goods;
         private System.Windows.Forms.NumericUpDown goodSlot;
+        private System.Windows.Forms.ComboBox LocationText;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox WarpSelection;
     }
 }

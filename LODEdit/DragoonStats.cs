@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LODEdit
 {
@@ -16,11 +14,11 @@ namespace LODEdit
         Divine = 128
     }
 
-    class DragoonStats
+    internal class DragoonStats
     {
-        private SaveData saveData;
-        private Int32 saveInfoIndex = 0x0224;
-        private Int32 gameIndex = 0x041C;
+        private readonly SaveData saveData;
+        private const int SaveInfoIndex = 0x0224;
+        private const int GameIndex = 0x041C;
 
         private uint dragoonState;
 
@@ -28,39 +26,39 @@ namespace LODEdit
         {
             this.saveData = saveData;
 
-            loadData();
+            LoadData();
         }
 
-        public void addDragoonSpirit(DragoonSpirit dragoonSpirit)
+        public void AddDragoonSpirit(DragoonSpirit dragoonSpirit)
         {
             dragoonState |= (uint)dragoonSpirit;
         }
 
-        public void removeDragoonSpirit(DragoonSpirit dragoonSpirit)
+        public void RemoveDragoonSpirit(DragoonSpirit dragoonSpirit)
         {
             dragoonState &= ~(uint)dragoonSpirit;
         }
 
-        public bool hasDragoonSpirit(DragoonSpirit dragoonSpirit)
+        public bool HasDragoonSpirit(DragoonSpirit dragoonSpirit)
         {
             return (dragoonState & (uint)dragoonSpirit) == (uint)dragoonSpirit;
         }
 
-        public DragoonSpirit getFromIndex(int index)
+        public DragoonSpirit GetFromIndex(int index)
         {
-            DragoonSpirit[] dsArr = (DragoonSpirit[])Enum.GetValues(typeof(DragoonSpirit));
+            var dsArr = (DragoonSpirit[])Enum.GetValues(typeof(DragoonSpirit));
             return dsArr[index];
         }
 
-        private void loadData()
+        private void LoadData()
         {
-            dragoonState = saveData.load8bitUint(gameIndex);
+            dragoonState = saveData.Load8BitUint(GameIndex);
         }
 
-        public void updateData()
+        public void UpdateData()
         {
-            saveData.save8bitUint(saveInfoIndex, dragoonState);
-            saveData.save8bitUint(gameIndex, dragoonState);
+            saveData.Save8BitUint(SaveInfoIndex, dragoonState);
+            saveData.Save8BitUint(GameIndex, dragoonState);
         }
     }
 }

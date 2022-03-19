@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LODEdit
 {
-    class TimePlayed
+    internal class TimePlayed
     {
-        private SaveData saveData;
-        private Int32 saveInfoIndex = 0x0220;
-        private Int32 gameIndex = 0x0320;
+        private readonly SaveData saveData;
+        private const int SaveInfoIndex = 0x0220;
+        private const int GameIndex = 0x0320;
 
         public int hours;
         public int minutes;
@@ -18,27 +16,27 @@ namespace LODEdit
         {
             this.saveData = saveData;
 
-            loadData();
+            LoadData();
         }
 
-        private void loadData()
+        private void LoadData()
         {
-            int frames = saveData.load32bitInt(gameIndex);
-            TimeSpan gameTimeSpan = TimeSpan.FromSeconds(frames / 60);
+            var frames = saveData.Load32BitInt(GameIndex);
+            var gameTimeSpan = TimeSpan.FromSeconds((double)frames / 60);
             hours = Convert.ToInt32(Math.Floor(gameTimeSpan.TotalHours));
             minutes = gameTimeSpan.Minutes;
             seconds = gameTimeSpan.Seconds;
         }
 
-        public void updateData()
+        public void UpdateData()
         {
-            int frames = hours * 60; // hours to minutes
+            var frames = hours * 60; // hours to minutes
             frames += minutes;
             frames *= 60; // minutes to seconds
             frames += seconds;
             frames *= 60; // seconds to frames
-            saveData.save32bitInt(gameIndex, frames);
-            saveData.save32bitInt(saveInfoIndex, frames);
+            saveData.Save32BitInt(GameIndex, frames);
+            saveData.Save32BitInt(SaveInfoIndex, frames);
         }
     }
 }

@@ -2,11 +2,7 @@
 //Shendo 2009-2012
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace LODEdit
@@ -18,19 +14,19 @@ namespace LODEdit
             InitializeComponent();
         }
 
-        public void initDialog(string applicationName, string applicationVersion, string supportedGames, string copyrightInfo, string additionalInfo)
+        public void InitDialog(string applicationName, string applicationVersion, string supportedGames, string copyrightInfo, string additionalInfo)
         {
             //Set Window title
-            this.Text = "About";
+            Text = @"About";
 
             //Display program name
             appNameLabel.Text = applicationName;
 
             //Display program version
-            appVersionLabel.Text = "Version: " + applicationVersion;
+            appVersionLabel.Text = @"Version: " + applicationVersion;
 
             //Display program compile date
-            supportedGamesLabel.Text = "Save editor for " + supportedGames;
+            supportedGamesLabel.Text = @"Save editor for " + supportedGames;
 
             //Display copyright information
             copyrightLabel.Text = copyrightInfo;
@@ -39,22 +35,22 @@ namespace LODEdit
             infoLabel.Text = additionalInfo;
 
             //Resize dialog according to the quantity of text
-            this.Size = new Size(this.Size.Width, 132 + infoLabel.Height);
+            Size = new Size(Size.Width, 132 + infoLabel.Height);
 
             //Display a dialog
-            this.ShowDialog();
+            ShowDialog();
         }
 
         private void OKbutton_Click(object sender, EventArgs e)
         {
             //Close the form
-            this.Close();
+            Close();
         }
 
         private void AboutWindow_Paint(object sender, PaintEventArgs e)
         {
             //Draw gray rectangle
-            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(80,80,80)), 0, 0, this.Width, 52);
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(80,80,80)), 0, 0, Width, 52);
         }
     }
 }

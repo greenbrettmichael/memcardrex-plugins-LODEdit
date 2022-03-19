@@ -1,75 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace LODEdit
 {
-    public partial class mainWindow : Form
+    public partial class MainWindow : Form
     {
-        private bool confirmedFlag = false;
-        private int currentSaveSlot = 0;
-        private SaveData saveData = null;
-        Gold saveGold = null;
-        TimePlayed saveTime = null;
-        Party saveParty = null;
-        DragoonStats dragoonStats = null;
-        Inventory inventory = null;
-        Goods keyItems = null;
-        List<CharacterStats> saveCharacters = new List<CharacterStats>();
-        CharacterID selectedCharacter = CharacterID.Dart;
-        int selectedAddition = 0;
-        int selectedArmorItem = 0;
-        int selectedUsedItem = 0;
-        int selectedGoodsSlot = 2;
+        private bool confirmedFlag;
+        private const int CurrentSaveSlot = 0;
+        private DragoonStats dragoonStats;
+        private Inventory inventory;
+        private Goods keyItems;
+        private readonly List<CharacterStats> saveCharacters = new List<CharacterStats>();
+        private SaveData saveData;
+        private Gold saveGold;
+        private Party saveParty;
+        private TimePlayed saveTime;
+        private int selectedAddition;
+        private int selectedArmorItem;
+        private CharacterId selectedCharacter = CharacterId.Dart;
+        private int selectedGoodsSlot = 2;
+        private int selectedUsedItem;
+        private Warp warp;
 
-        public mainWindow()
+        public MainWindow()
         {
             InitializeComponent();
         }
 
-        public byte[] initDialog(string windowTitle, byte[] gameSaveData)
+        public byte[] InitDialog(string windowTitle, byte[] gameSaveData)
         {
-            #if DEBUG
+#if DEBUG
                 System.Diagnostics.Debugger.Launch();
-            #endif
-            this.Text = windowTitle;
-            this.saveData = new SaveData(gameSaveData, currentSaveSlot);
-            this.saveGold = new Gold(saveData);
-            this.saveTime = new TimePlayed(saveData);
-            this.saveParty = new Party(saveData);
-            this.dragoonStats = new DragoonStats(saveData);
-            this.inventory = new Inventory(saveData);
-            this.keyItems = new Goods(saveData);
-            itemSlotItem.DataSource = inventory.getItemList();
-            armorSlotItem.DataSource = inventory.getArmorList();
-            weapon.DataSource = inventory.getArmorList();
-            helmet.DataSource = inventory.getArmorList();
-            chest.DataSource = inventory.getArmorList();
-            boots.DataSource = inventory.getArmorList();
-            accessory.DataSource = inventory.getArmorList();
-            foreach (CharacterID characterID in Enum.GetValues(typeof(CharacterID)))
+#endif
+            Text = windowTitle;
+            saveData = new SaveData(gameSaveData, CurrentSaveSlot);
+            saveGold = new Gold(saveData);
+            saveTime = new TimePlayed(saveData);
+            saveParty = new Party(saveData);
+            dragoonStats = new DragoonStats(saveData);
+            inventory = new Inventory(saveData);
+            keyItems = new Goods(saveData);
+            warp = new Warp(saveData);
+            itemSlotItem.DataSource = inventory.GetItemList();
+            armorSlotItem.DataSource = inventory.GetArmorList();
+            weapon.DataSource = inventory.GetArmorList();
+            helmet.DataSource = inventory.GetArmorList();
+            chest.DataSource = inventory.GetArmorList();
+            boots.DataSource = inventory.GetArmorList();
+            accessory.DataSource = inventory.GetArmorList();
+            foreach (CharacterId characterId in Enum.GetValues(typeof(CharacterId)))
             {
-                if(characterID == CharacterID.None)
-                {
-                    continue;
-                }
-                this.saveCharacters.Add(new CharacterStats(characterID, saveData));
+                if (characterId == CharacterId.None) continue;
+                saveCharacters.Add(new CharacterStats(characterId, saveData));
             }
-            loadData();
 
-            this.ShowDialog();
+            LocationText.DataSource = warp.locationTextList;
+            WarpSelection.DataSource = warp.warpsList;
 
-            if (confirmedFlag == true) return this.saveData.getData(); else return null;
+            LoadData();
+
+            ShowDialog();
+
+            return confirmedFlag ? saveData.GetData() : null;
         }
 
-        private void loadAddition()
+        private void LoadAddition()
         {
-            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
-            if(saveCharacter.additions.Count > selectedAddition)
+            var saveCharacter = saveCharacters[(int) selectedCharacter];
+            if (saveCharacter.additions.Count > selectedAddition)
             {
                 hits.Value = saveCharacter.additions[selectedAddition].hits;
                 addition.Text = saveCharacter.additions[selectedAddition].name;
@@ -81,9 +81,9 @@ namespace LODEdit
             }
         }
 
-        private void loadCharacterStats()
+        private void LoadCharacterStats()
         {
-            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
+            var saveCharacter = saveCharacters[(int) selectedCharacter];
             lvl.Value = saveCharacter.lvl;
             exp.Value = saveCharacter.exp;
             dlvl.Value = saveCharacter.dlvl;
@@ -91,7 +91,7 @@ namespace LODEdit
             hp.Value = saveCharacter.hp;
             mp.Value = saveCharacter.mp;
             sp.Value = saveCharacter.sp;
-            if(selectedCharacter == CharacterID.Dart)
+            if (selectedCharacter == CharacterId.Dart)
             {
                 dartMaxHP.Value = saveCharacter.dartMaxHp;
                 dartMaxHP.Enabled = true;
@@ -101,6 +101,7 @@ namespace LODEdit
                 dartMaxHP.Value = 0;
                 dartMaxHP.Enabled = false;
             }
+
             weapon.SelectedItem = saveCharacter.weapon;
             helmet.SelectedItem = saveCharacter.helmet;
             chest.SelectedItem = saveCharacter.chest;
@@ -109,142 +110,136 @@ namespace LODEdit
 
             addition.Items.Clear();
             selectedAddition = 0;
-            foreach (Addition characterAddition in saveCharacter.additions)
-            {
-                addition.Items.Add(characterAddition.name);
-            }
-            loadAddition();
+            foreach (var characterAddition in saveCharacter.additions) addition.Items.Add(characterAddition.name);
+            LoadAddition();
         }
 
-        private decimal clampNumeric(NumericUpDown numCtrl)
+        private static decimal ClampNumeric(NumericUpDown numCtrl)
         {
             return Math.Max(numCtrl.Minimum, Math.Min(numCtrl.Value, numCtrl.Maximum));
         }
 
-        private void updateAddition()
+        private void UpdateAddition()
         {
-            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
+            var saveCharacter = saveCharacters[(int) selectedCharacter];
             if (saveCharacter.additions.Count > selectedAddition)
-            {
-                saveCharacter.additions[selectedAddition].hits = (int)clampNumeric(hits);
-            }
+                saveCharacter.additions[selectedAddition].hits = (int) ClampNumeric(hits);
         }
 
-        private void loadArmorItem()
+        private void LoadArmorItem()
         {
-            selectedArmorItem = (int)armorSlot.Value - 1;
+            selectedArmorItem = (int) armorSlot.Value - 1;
             armorSlotItem.SelectedItem = inventory.armors[selectedArmorItem];
         }
 
-        private void loadUsedItem()
+        private void LoadUsedItem()
         {
-            selectedUsedItem = (int)itemSlot.Value - 1;
+            selectedUsedItem = (int) itemSlot.Value - 1;
             itemSlotItem.SelectedItem = inventory.usedItems[selectedUsedItem];
         }
 
-        private void updateArmorItem()
+        private void UpdateArmorItem()
         {
-            inventory.armors[selectedArmorItem] = (InventoryItem)armorSlotItem.SelectedItem;
+            inventory.armors[selectedArmorItem] = (InventoryItem) armorSlotItem.SelectedItem;
         }
 
-        private void updateUsedItem()
+        private void UpdateUsedItem()
         {
-            inventory.usedItems[selectedUsedItem] = (InventoryItem)itemSlotItem.SelectedItem;
+            inventory.usedItems[selectedUsedItem] = (InventoryItem) itemSlotItem.SelectedItem;
         }
 
-        private void loadKeyItems()
+        private void LoadKeyItems()
         {
-            selectedGoodsSlot = selectedGoodsSlot = (int)clampNumeric(goodSlot);
+            selectedGoodsSlot = selectedGoodsSlot = (int) ClampNumeric(goodSlot);
             goods.Items.Clear();
             switch (selectedGoodsSlot)
             {
                 case 2:
                     foreach (Goods2 value in Enum.GetValues(typeof(Goods2)))
-                    {
-                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
-                    }
+                        goods.Items.Add(value, keyItems.HasGood(value, selectedGoodsSlot));
                     break;
                 case 3:
                     foreach (Goods3 value in Enum.GetValues(typeof(Goods3)))
-                    {
-                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
-                    }
+                        goods.Items.Add(value, keyItems.HasGood(value, selectedGoodsSlot));
                     break;
                 case 4:
                     foreach (Goods4 value in Enum.GetValues(typeof(Goods4)))
-                    {
-                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
-                    }
+                        goods.Items.Add(value, keyItems.HasGood(value, selectedGoodsSlot));
                     break;
                 case 5:
                     foreach (Goods5 value in Enum.GetValues(typeof(Goods5)))
-                    {
-                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
-                    }
+                        goods.Items.Add(value, keyItems.HasGood(value, selectedGoodsSlot));
                     break;
                 case 6:
                     foreach (Goods6 value in Enum.GetValues(typeof(Goods6)))
-                    {
-                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
-                    }
+                        goods.Items.Add(value, keyItems.HasGood(value, selectedGoodsSlot));
                     break;
                 case 7:
                     foreach (Goods7 value in Enum.GetValues(typeof(Goods7)))
-                    {
-                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
-                    }
+                        goods.Items.Add(value, keyItems.HasGood(value, selectedGoodsSlot));
                     break;
                 case 8:
                     foreach (Goods8 value in Enum.GetValues(typeof(Goods8)))
-                    {
-                        goods.Items.Add(value, keyItems.hasGood(value, selectedGoodsSlot));
-                    }
-                    break;
-                default:
+                        goods.Items.Add(value, keyItems.HasGood(value, selectedGoodsSlot));
                     break;
             }
         }
 
-        private void updateKeyItems()
+        private void UpdateLocationText()
         {
-            for (int i = 0; i < goods.Items.Count; i++)
+            warp.locationTextValue = (int)warp.locationTextList[LocationText.SelectedIndex];
+        }
+
+        private void LoadLocationText()
+        {
+            LocationText locationTextValue = warp.GetLocationTextFromCode(warp.locationTextValue);
+            LocationText.SelectedIndex = warp.locationTextList.FindIndex(currText => currText == locationTextValue);
+        }
+
+        private void UpdateWarp()
+        {
+            warp.warpValue = (int)warp.warpsList[WarpSelection.SelectedIndex];
+        }
+
+        private void LoadWarp()
+        {
+            SaveLocation saveLocationValue = warp.GetWarpFromCode(warp.warpValue);
+            WarpSelection.SelectedIndex = warp.warpsList.FindIndex(currWarp => currWarp == saveLocationValue);
+        }
+
+        private void UpdateKeyItems()
+        {
+            for (var i = 0; i < goods.Items.Count; i++)
             {
-                CheckState st = goods.GetItemCheckState(i);
+                var st = goods.GetItemCheckState(i);
                 if (st == CheckState.Checked)
-                {
-                    keyItems.addGood(goods.Items[i], selectedGoodsSlot);
-                }
+                    keyItems.AddGood(goods.Items[i], selectedGoodsSlot);
                 else
-                {
-                    keyItems.removeGood(goods.Items[i], selectedGoodsSlot);
-                }
+                    keyItems.RemoveGood(goods.Items[i], selectedGoodsSlot);
             }
         }
 
-        private void updateCharacterStats()
+        private void UpdateCharacterStats()
         {
-            CharacterStats saveCharacter = saveCharacters[(int)selectedCharacter];
-            saveCharacter.lvl = (int)clampNumeric(lvl);
-            saveCharacter.exp = (int)clampNumeric(exp);
-            saveCharacter.dlvl = (int)clampNumeric(dlvl);
-            saveCharacter.dexp = (int)clampNumeric(dexp);
-            saveCharacter.hp = (int)clampNumeric(hp);
-            saveCharacter.mp = (int)clampNumeric(mp);
-            saveCharacter.sp = (int)clampNumeric(sp);
-            saveCharacter.weapon = (InventoryItem)(weapon.SelectedItem ?? saveCharacter.weapon);
-            saveCharacter.helmet = (InventoryItem)(helmet.SelectedItem ?? saveCharacter.helmet);
-            saveCharacter.chest = (InventoryItem)(chest.SelectedItem ?? saveCharacter.chest);
-            saveCharacter.boots = (InventoryItem)(boots.SelectedItem ?? saveCharacter.boots);
-            saveCharacter.accessory = (InventoryItem)(accessory.SelectedItem ?? saveCharacter.accessory);
-            if (selectedCharacter == CharacterID.Dart)
-            {
-                saveCharacter.dartMaxHp = (int)clampNumeric(dartMaxHP);
-            }
+            var saveCharacter = saveCharacters[(int) selectedCharacter];
+            saveCharacter.lvl = (int) ClampNumeric(lvl);
+            saveCharacter.exp = (int) ClampNumeric(exp);
+            saveCharacter.dlvl = (int) ClampNumeric(dlvl);
+            saveCharacter.dexp = (int) ClampNumeric(dexp);
+            saveCharacter.hp = (int) ClampNumeric(hp);
+            saveCharacter.mp = (int) ClampNumeric(mp);
+            saveCharacter.sp = (int) ClampNumeric(sp);
+            saveCharacter.weapon = (InventoryItem) (weapon.SelectedItem ?? saveCharacter.weapon);
+            saveCharacter.helmet = (InventoryItem) (helmet.SelectedItem ?? saveCharacter.helmet);
+            saveCharacter.chest = (InventoryItem) (chest.SelectedItem ?? saveCharacter.chest);
+            saveCharacter.boots = (InventoryItem) (boots.SelectedItem ?? saveCharacter.boots);
+            saveCharacter.accessory = (InventoryItem) (accessory.SelectedItem ?? saveCharacter.accessory);
+            if (selectedCharacter == CharacterId.Dart) saveCharacter.dartMaxHp = (int) ClampNumeric(dartMaxHP);
 
-            updateAddition();
+            UpdateAddition();
         }
 
-        private void loadData()
+        private void LoadData()
         {
             goldNumeric.Value = saveGold.gold;
 
@@ -252,122 +247,130 @@ namespace LODEdit
             timeMinutes.Value = saveTime.minutes;
             timeSeconds.Value = saveTime.seconds;
 
-            party1.SelectedIndex = (int)saveParty.party1 + 1;
-            party2.SelectedIndex = (int)saveParty.party2 + 1;
-            party3.SelectedIndex = (int)saveParty.party3 + 1;
+            party1.SelectedIndex = (int) saveParty.party1 + 1;
+            party2.SelectedIndex = (int) saveParty.party2 + 1;
+            party3.SelectedIndex = (int) saveParty.party3 + 1;
 
-            loadCharacterStats();
-            character.SelectedIndex = (int)selectedCharacter;
+            LoadCharacterStats();
+            character.SelectedIndex = (int) selectedCharacter;
             addition.SelectedIndex = selectedAddition;
 
-            int dsIter = 0;
-            foreach(DragoonSpirit ds in Enum.GetValues(typeof(DragoonSpirit)))
-            {
-                dragoonSpirits.SetItemChecked(dsIter++, dragoonStats.hasDragoonSpirit(ds));
-            }
+            var dsIter = 0;
+            foreach (DragoonSpirit ds in Enum.GetValues(typeof(DragoonSpirit)))
+                dragoonSpirits.SetItemChecked(dsIter++, dragoonStats.HasDragoonSpirit(ds));
 
-            loadArmorItem();
-            loadUsedItem();
+            LoadArmorItem();
+            LoadUsedItem();
             armorCount.Value = inventory.armorCount;
             itemCount.Value = inventory.itemCount;
 
-            loadKeyItems();
+            LoadKeyItems();
+
+            LoadLocationText();
+            LoadWarp();
         }
 
-        private void updateData()
+        private void UpdateData()
         {
-            saveGold.gold = (uint)clampNumeric(goldNumeric);
-            saveGold.updateData();
+            saveGold.gold = (uint) ClampNumeric(goldNumeric);
+            saveGold.UpdateData();
 
-            saveTime.hours = (int)clampNumeric(timeHours);
-            saveTime.minutes = (int)clampNumeric(timeMinutes);
-            saveTime.seconds = (int)clampNumeric(timeSeconds);
-            saveTime.updateData();
+            saveTime.hours = (int) ClampNumeric(timeHours);
+            saveTime.minutes = (int) ClampNumeric(timeMinutes);
+            saveTime.seconds = (int) ClampNumeric(timeSeconds);
+            saveTime.UpdateData();
 
-            saveParty.party1 = (CharacterID)party1.SelectedIndex - 1;
-            saveParty.party2 = (CharacterID)party2.SelectedIndex - 1;
-            saveParty.party3 = (CharacterID)party3.SelectedIndex - 1;
-            saveParty.updateData();
+            saveParty.party1 = (CharacterId) party1.SelectedIndex - 1;
+            saveParty.party2 = (CharacterId) party2.SelectedIndex - 1;
+            saveParty.party3 = (CharacterId) party3.SelectedIndex - 1;
+            saveParty.UpdateData();
 
-            updateCharacterStats();
-            foreach (CharacterStats saveCharacter in saveCharacters)
-            {
-                saveCharacter.updateData();
-            }
+            UpdateCharacterStats();
+            foreach (var saveCharacter in saveCharacters) saveCharacter.UpdateData();
 
-            dragoonStats.updateData();
+            dragoonStats.UpdateData();
 
-            updateArmorItem();
-            updateUsedItem();
-            inventory.armorCount = (uint)clampNumeric(armorCount);
-            inventory.itemCount = (uint)clampNumeric(itemCount);
-            inventory.updateData();
+            UpdateArmorItem();
+            UpdateUsedItem();
+            inventory.armorCount = (uint) ClampNumeric(armorCount);
+            inventory.itemCount = (uint) ClampNumeric(itemCount);
+            inventory.UpdateData();
 
-            updateKeyItems();
-            keyItems.updateData();
+            UpdateKeyItems();
+            keyItems.UpdateData();
+
+            warp.UpdateData();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            updateData();
+            UpdateData();
 
             confirmedFlag = true;
-            this.Close();
+            Close();
         }
 
         private void mainWindow_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(80, 80, 80)), 0, 0, this.Width, 30);
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(80, 80, 80)), 0, 0, Width, 30);
         }
 
         private void addition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            updateAddition();
+            UpdateAddition();
             selectedAddition = addition.SelectedIndex;
-            loadAddition();
+            LoadAddition();
         }
 
         private void character_SelectedIndexChanged(object sender, EventArgs e)
         {
-            updateCharacterStats();
-            selectedCharacter = (CharacterID)character.SelectedIndex;
-            loadCharacterStats();
+            UpdateCharacterStats();
+            selectedCharacter = (CharacterId) character.SelectedIndex;
+            LoadCharacterStats();
         }
 
         private void dragoonSpirits_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            DragoonSpirit checkedSpirit = dragoonStats.getFromIndex(e.Index);
-            if(e.NewValue == CheckState.Checked)
-            {
-                dragoonStats.addDragoonSpirit(checkedSpirit);
-            }
+            var checkedSpirit = dragoonStats.GetFromIndex(e.Index);
+            if (e.NewValue == CheckState.Checked)
+                dragoonStats.AddDragoonSpirit(checkedSpirit);
             else
-            {
-                dragoonStats.removeDragoonSpirit(checkedSpirit);
-            }
+                dragoonStats.RemoveDragoonSpirit(checkedSpirit);
         }
 
         private void armorSlot_ValueChanged(object sender, EventArgs e)
         {
-            updateArmorItem();
-            loadArmorItem();
+            UpdateArmorItem();
+            LoadArmorItem();
         }
 
         private void itemSlot_ValueChanged(object sender, EventArgs e)
         {
-            updateUsedItem();
-            loadUsedItem();
+            UpdateUsedItem();
+            LoadUsedItem();
         }
 
         private void goodSlot_ValueChanged(object sender, EventArgs e)
         {
-            updateKeyItems();
-            loadKeyItems();
+            UpdateKeyItems();
+            LoadKeyItems();
+        }
+
+        private void LocationText_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateLocationText();
+            LoadLocationText();
+        }
+
+        private void WarpSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateWarp();
+            LoadWarp();
         }
     }
 }

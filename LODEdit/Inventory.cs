@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LODEdit
 {
@@ -29,7 +28,7 @@ namespace LODEdit
         Spear = 20,
         Lance = 21,
         Glaive = 22,
-        Spear_of_Terror = 23,
+        Spear_Of_Terror = 23,
         Partisan = 24,
         Halberd = 25,
         Twister_Glaive = 26,
@@ -39,7 +38,7 @@ namespace LODEdit
         Bemusing_Arrow = 30,
         Virulent_Arrow = 31,
         Detonate_Arrow = 32,
-        Arrow_of_Force = 33,
+        Arrow_Of_Force = 33,
         Mace = 34,
         Morning_Star = 35,
         War_Hammer = 36,
@@ -57,30 +56,30 @@ namespace LODEdit
         Chain_Mail = 48,
         Plate_Mail = 49,
         Saint_Armor = 50,
-        Red_DG_Armor = 51,
-        Jade_DG_Armor = 52,
+        Red_Dg_Armor = 51,
+        Jade_Dg_Armor = 52,
         Lion_Fur = 53,
         Breast_Plate = 54,
         Giganto_Armor = 55,
-        Gold_DG_Armor = 56,
+        Gold_Dg_Armor = 56,
         Disciple_Vest = 57,
         Warrior_Dress = 58,
         Masters_Vest = 59,
         Energy_Girdle = 60,
-        Violet_DG_Armor = 61,
+        Violet_Dg_Armor = 61,
         Clothes = 62,
         Leather_Jacket = 63,
         Silver_Vest = 64,
         Sparkle_Dress = 65,
         Robe = 66,
-        Silver_DG_Armor = 67,
-        Dark_DG_Armor = 68,
-        Blue_DG_Armor = 69,
-        Armor_of_Yore = 70,
+        Silver_Dg_Armor = 67,
+        Dark_Dg_Armor = 68,
+        Blue_Dg_Armor = 69,
+        Armor_Of_Yore = 70,
         Sator_Vest = 71,
         Rainbow_Dress = 72,
         Angel_Robe = 73,
-        Armor_of_Legend = 74,
+        Armor_Of_Legend = 74,
         Bandana = 76,
         Sallet = 77,
         Armet = 78,
@@ -210,19 +209,20 @@ namespace LODEdit
         Invalid = 254,
         None = 255,
     }
-    class Inventory
+
+    internal class Inventory
     {
-        private SaveData saveData;
-        private Int32 armorCountIndex = 0x0464;
-        private Int32 itemCountIndex = 0x0466;
-        private Int32 armorIndex = 0x0468;
-        private Int32 itemIndex = 0x0569;
-        private int armorSlots = 255;
-        private int itemSlots = 32;
-        private int armorStart = 0;
-        private int armorEnd = 157;
-        private int itemsStart = 193;
-        private int itemsEnd = 250;
+        private readonly SaveData saveData;
+        private const int ArmorCountIndex = 0x0464;
+        private const int ItemCountIndex = 0x0466;
+        private const int ArmorIndex = 0x0468;
+        private const int ItemIndex = 0x0569;
+        private const int ArmorSlots = 255;
+        private const int ItemSlots = 32;
+        // Armor starts at 0
+        private const int ArmorEnd = 157;
+        private const int ItemsStart = 193;
+        private const int ItemsEnd = 250;
 
         public List<InventoryItem> armors = new List<InventoryItem>();
         public List<InventoryItem> usedItems = new List<InventoryItem>();
@@ -234,56 +234,42 @@ namespace LODEdit
         {
             this.saveData = saveData;
 
-            loadData();
+            LoadData();
         }
 
-        public List<InventoryItem> getItemList()
+        public List<InventoryItem> GetItemList()
         {
-            List<InventoryItem> output = new List<InventoryItem>();
-            output.Add(InventoryItem.None);
-            List<InventoryItem> allItemCodes = new List<InventoryItem>((InventoryItem[])Enum.GetValues(typeof(InventoryItem)));
-            List<InventoryItem> usedItemCodes = allItemCodes.FindAll(
-                delegate(InventoryItem itemCodes)
-                {
-                    return (uint)itemCodes >= itemsStart && (uint)itemCodes <= itemsEnd;
-                }
-                );
-            List<InventoryItem> armorItemCodes = allItemCodes.FindAll(
-                delegate (InventoryItem itemCodes)
-                {
-                    return (uint)itemCodes >= armorStart && (uint)itemCodes <= armorEnd;
-                }
-                );
+            var output = new List<InventoryItem> {InventoryItem.None};
+            var allItemCodes = new List<InventoryItem>((InventoryItem[])Enum.GetValues(typeof(InventoryItem)));
+            var usedItemCodes = allItemCodes.FindAll(
+                itemCodes => (uint) itemCodes >= ItemsStart && (uint) itemCodes <= ItemsEnd
+            );
+            var armorItemCodes = allItemCodes.FindAll(
+                itemCodes => (uint) itemCodes <= ArmorEnd
+            );
             output.AddRange(usedItemCodes);
             output.AddRange(armorItemCodes);
             output.Add(InventoryItem.Invalid);
             return output;
         }
 
-        public List<InventoryItem> getArmorList()
+        public List<InventoryItem> GetArmorList()
         {
-            List<InventoryItem> output = new List<InventoryItem>();
-            output.Add(InventoryItem.None);
-            List<InventoryItem> allItemCodes = new List<InventoryItem>((InventoryItem[])Enum.GetValues(typeof(InventoryItem)));
-            List<InventoryItem> usedItemCodes = allItemCodes.FindAll(
-                delegate (InventoryItem itemCodes)
-                {
-                    return (uint)itemCodes >= itemsStart && (uint)itemCodes <= itemsEnd;
-                }
-                );
-            List<InventoryItem> armorItemCodes = allItemCodes.FindAll(
-                delegate (InventoryItem itemCodes)
-                {
-                    return (uint)itemCodes >= armorStart && (uint)itemCodes <= armorEnd;
-                }
-                );
+            var output = new List<InventoryItem> {InventoryItem.None};
+            var allItemCodes = new List<InventoryItem>((InventoryItem[])Enum.GetValues(typeof(InventoryItem)));
+            var usedItemCodes = allItemCodes.FindAll(
+                itemCodes => (uint) itemCodes >= ItemsStart && (uint) itemCodes <= ItemsEnd
+            );
+            var armorItemCodes = allItemCodes.FindAll(
+                itemCodes => (uint) itemCodes <= ArmorEnd
+            );
             output.AddRange(armorItemCodes);
             output.AddRange(usedItemCodes);
             output.Add(InventoryItem.Invalid);
             return output;
         }
 
-        public InventoryItem getItemFromCode(uint itemCode)
+        public InventoryItem GetItemFromCode(uint itemCode)
         {
             if(Enum.IsDefined(typeof(InventoryItem), itemCode))
             {
@@ -292,37 +278,37 @@ namespace LODEdit
             return InventoryItem.Invalid;
         }
 
-        private void loadData()
+        private void LoadData()
         {
-            for(int armorIter = armorIndex; armorIter < (armorIndex + armorSlots); ++armorIter)
+            for(var armorIter = ArmorIndex; armorIter < (ArmorIndex + ArmorSlots); ++armorIter)
             {
-                uint itemCode = saveData.load8bitUint(armorIter);
-                armors.Add(getItemFromCode(itemCode));
+                var itemCode = saveData.Load8BitUint(armorIter);
+                armors.Add(GetItemFromCode(itemCode));
             }
 
-            for (int itemIter = itemIndex; itemIter < (itemIndex + itemSlots); ++itemIter)
+            for (var itemIter = ItemIndex; itemIter < (ItemIndex + ItemSlots); ++itemIter)
             {
-                uint itemCode = saveData.load8bitUint(itemIter);
-                usedItems.Add(getItemFromCode(itemCode));
+                var itemCode = saveData.Load8BitUint(itemIter);
+                usedItems.Add(GetItemFromCode(itemCode));
             }
 
-            armorCount = saveData.load8bitUint(armorCountIndex);
-            itemCount = saveData.load8bitUint(itemCountIndex);
+            armorCount = saveData.Load8BitUint(ArmorCountIndex);
+            itemCount = saveData.Load8BitUint(ItemCountIndex);
         }
 
-        public void updateData()
+        public void UpdateData()
         {
-            for (int armorSlot = 0; armorSlot < armorSlots; ++armorSlot)
+            for (var armorSlot = 0; armorSlot < ArmorSlots; ++armorSlot)
             {
-                saveData.save8bitUint(armorIndex + armorSlot, (uint)armors[armorSlot]);
+                saveData.Save8BitUint(ArmorIndex + armorSlot, (uint)armors[armorSlot]);
             }
-            for (int itemSlot = 0; itemSlot < itemSlots; ++itemSlot)
+            for (var itemSlot = 0; itemSlot < ItemSlots; ++itemSlot)
             {
-                saveData.save8bitUint(itemIndex + itemSlot, (uint)usedItems[itemSlot]);
+                saveData.Save8BitUint(ItemIndex + itemSlot, (uint)usedItems[itemSlot]);
             }
 
-            saveData.save8bitUint(armorCountIndex, armorCount);
-            saveData.save8bitUint(itemCountIndex, itemCount);
+            saveData.Save8BitUint(ArmorCountIndex, armorCount);
+            saveData.Save8BitUint(ItemCountIndex, itemCount);
         }
     }
 }

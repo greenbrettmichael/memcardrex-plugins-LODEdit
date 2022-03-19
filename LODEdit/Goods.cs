@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LODEdit
 {
@@ -43,7 +41,7 @@ namespace LODEdit
     public enum Goods5
     {
         Law_Output = 1,
-        Gold_Dragon_DS = 2,
+        Gold_Dragon_Ds = 2,
         Magic_Shiny_Bag = 4,
         Vanishing_Stone = 8,
         Lavitzs_Picture = 16,
@@ -88,11 +86,11 @@ namespace LODEdit
         Temporary63 = 128
     }
 
-    class Goods
+    internal class Goods
     {
-        private SaveData saveData;
+        private readonly SaveData saveData;
 
-        private Int32 gameIndex = 0x041D;
+        private const int GameIndex = 0x041D;
 
         private uint goods2;
         private uint goods3;
@@ -106,10 +104,10 @@ namespace LODEdit
         {
             this.saveData = saveData;
 
-            loadData();
+            LoadData();
         }
 
-        public void addGood<T>(T good, int slot)
+        public void AddGood<T>(T good, int slot)
         {
             switch (slot)
             {
@@ -134,12 +132,10 @@ namespace LODEdit
                 case 8:
                     goods8 |= Convert.ToUInt32(good);
                     break;
-                default:
-                    break;
             }
         }
 
-        public void removeGood<T>(T good, int slot)
+        public void RemoveGood<T>(T good, int slot)
         {
             switch (slot)
             {
@@ -164,12 +160,10 @@ namespace LODEdit
                 case 8:
                     goods8 &= ~Convert.ToUInt32(good);
                     break;
-                default:
-                    break;
             }
         }
 
-        public bool hasGood<T>(T good, int slot)
+        public bool HasGood<T>(T good, int slot)
         {
             switch (slot)
             {
@@ -187,13 +181,11 @@ namespace LODEdit
                     return (goods7 & Convert.ToUInt32(good)) == Convert.ToUInt32(good);
                 case 8:
                     return (goods8 & Convert.ToUInt32(good)) == Convert.ToUInt32(good);
-                default:
-                    break;
             }
             return false;
         }
 
-        public void setGoodList<T>(T collection, int slot) where T : System.Windows.Forms.ListBox.ObjectCollection
+        public void SetGoodList<T>(T collection, int slot) where T : System.Windows.Forms.ListBox.ObjectCollection
         {
             collection.Clear();
             switch (slot)
@@ -240,31 +232,29 @@ namespace LODEdit
                         collection.Add(value);
                     }
                     break;
-                default:
-                    break;
             }
         }
 
-        private void loadData()
+        private void LoadData()
         {
-            goods2 = saveData.load8bitUint(gameIndex);
-            goods3 = saveData.load8bitUint(gameIndex + 1);
-            goods4 = saveData.load8bitUint(gameIndex + 2);
-            goods5 = saveData.load8bitUint(gameIndex + 3);
-            goods6 = saveData.load8bitUint(gameIndex + 4);
-            goods7 = saveData.load8bitUint(gameIndex + 5);
-            goods8 = saveData.load8bitUint(gameIndex + 6);
+            goods2 = saveData.Load8BitUint(GameIndex);
+            goods3 = saveData.Load8BitUint(GameIndex + 1);
+            goods4 = saveData.Load8BitUint(GameIndex + 2);
+            goods5 = saveData.Load8BitUint(GameIndex + 3);
+            goods6 = saveData.Load8BitUint(GameIndex + 4);
+            goods7 = saveData.Load8BitUint(GameIndex + 5);
+            goods8 = saveData.Load8BitUint(GameIndex + 6);
         }
 
-        public void updateData()
+        public void UpdateData()
         {
-            saveData.save8bitUint(gameIndex, goods2);
-            saveData.save8bitUint(gameIndex + 1, goods3);
-            saveData.save8bitUint(gameIndex + 2, goods4);
-            saveData.save8bitUint(gameIndex + 3, goods5);
-            saveData.save8bitUint(gameIndex + 4, goods6);
-            saveData.save8bitUint(gameIndex + 5, goods7);
-            saveData.save8bitUint(gameIndex + 6, goods8);
+            saveData.Save8BitUint(GameIndex, goods2);
+            saveData.Save8BitUint(GameIndex + 1, goods3);
+            saveData.Save8BitUint(GameIndex + 2, goods4);
+            saveData.Save8BitUint(GameIndex + 3, goods5);
+            saveData.Save8BitUint(GameIndex + 4, goods6);
+            saveData.Save8BitUint(GameIndex + 5, goods7);
+            saveData.Save8BitUint(GameIndex + 6, goods8);
         }
     }
 }
